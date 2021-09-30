@@ -1,16 +1,12 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Button, Container } from '@material-ui/core';
-
 import MarkerMap from './MarkerMap';
-
 import { Redirect } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import ButtonAppBar from './ButtonAppBar';
 import { Box } from '@mui/system';
-
 import { Typography } from '@mui/material';
-
 import Grid from '@mui/material/Grid';
 import BasicDateTimePicker from './BasicDateTimePicker';
 import { useHistory } from 'react-router-dom';
@@ -23,7 +19,6 @@ const AppointmentCreator = ({ authorization }) => {
 
   const {
     selectedDoctor,
-
     remoteAppointment,
     setRemoteAppointment,
     createAppointment,
