@@ -19,6 +19,7 @@ import MarkerMap from './MarkerMap';
 import { useHistory } from 'react-router-dom';
 
 function Copyright(props) {
+  // MOVE THIS BELOW SIGNUP FUNCTION?
   return (
     <Typography
       variant="body2"
@@ -42,24 +43,24 @@ export default function SignUp() {
   let history = useHistory();
 
   const specialtyList = [
-    { value: 'Allergy/Immunologist', label: 'Allergy/Immunologist' },
-    { value: 'Cardiologist', label: 'Cardiologist' },
-    { value: 'Dermatologist', label: 'Dermatologist' },
-    { value: 'Family Medicine', label: 'Family Medicine' },
-    { value: 'Gynecologist', label: 'Gynecologist' },
-    { value: 'Medical Internist', label: 'Medical Internist' },
-    { value: 'Medical Geneticist', label: 'Medical Geneticist' },
-    { value: 'Neurologist', label: 'Neurologist' },
-    { value: 'Oncologist', label: 'Oncologist' },
-    { value: 'Ophthalmologist', label: 'Ophthalmologist' },
-    { value: 'Otorhinolaryngologist', label: 'Otorhinolaryngologist' },
-    { value: 'Pathologist', label: 'Pathologist' },
-    { value: 'Pediatrics', label: 'Pediatrics' },
-    { value: 'Pneumologist', label: 'Pneumologist' },
-    { value: 'Physiotherapist', label: 'Physiotherapist' },
-    { value: 'Psychiatrist', label: 'Psychiatrist' },
-    { value: 'Rheumatologist', label: 'Rheumatologist' },
-    { value: 'Urologist', label: 'Urologist' },
+    { value: 'Allergy/Immunologist' },
+    { value: 'Cardiologist' },
+    { value: 'Dermatologist' },
+    { value: 'Family Medicine' },
+    { value: 'Gynecologist' },
+    { value: 'Medical Internist' },
+    { value: 'Medical Geneticist' },
+    { value: 'Neurologist' },
+    { value: 'Oncologist' },
+    { value: 'Ophthalmologist' },
+    { value: 'Otorhinolaryngologist' },
+    { value: 'Pathologist' },
+    { value: 'Pediatrics' },
+    { value: 'Pneumologist' },
+    { value: 'Physiotherapist' },
+    { value: 'Psychiatrist' },
+    { value: 'Rheumatologist' },
+    { value: 'Urologist' },
   ];
   const {
     isDoctor,
@@ -85,6 +86,8 @@ export default function SignUp() {
     createUser,
     setUserAuth,
   } = useUser();
+
+  // IS THERE A WAY TO REDUCE THE NUMBER OF HANDLER FUNCTIONS HERE?
 
   const handleClick = () => {
     setIsDoctor(!isDoctor);
@@ -146,6 +149,7 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
+            //MUI PROP
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
@@ -157,7 +161,7 @@ export default function SignUp() {
           </Avatar>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox checked={!isDoctor} onChange={handleClick} />}
+              control={<Checkbox checked={!isDoctor} onChange={handleClick} />} //RENAME HANDLECLICK TO HANDLEISDOCTORCLICK
               label="I'm a Patient"
             />
             <FormControlLabel
@@ -240,11 +244,16 @@ export default function SignUp() {
                       helperText="Please select you Specialty"
                       onChange={handleMedicalSpecialty}
                     >
-                      {specialtyList.map((spec) => (
-                        <MenuItem key={spec.value} value={spec.value}>
-                          {spec.label}
-                        </MenuItem>
-                      ))}
+                      {specialtyList.map(
+                        (spec) => (
+                          (spec.label = spec.value),
+                          (
+                            <MenuItem key={spec.value} value={spec.value}>
+                              {spec.label}
+                            </MenuItem>
+                          )
+                        )
+                      )}
                     </TextField>
                   </Grid>
                   <Grid item xs={12}>
@@ -338,7 +347,7 @@ export default function SignUp() {
                 component="form"
                 noValidate
                 onSubmit={handleSubmit}
-                sx={{ mt: 3 }}
+                sx={{ mt: 3 }} //WHAT IS THIS?
               >
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>

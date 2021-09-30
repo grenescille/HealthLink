@@ -12,12 +12,17 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
         Health Link
@@ -31,31 +36,31 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
-
   let history = useHistory();
 
-  const {setPassword,setUserEmail,setUserAuth, Login, user,getAllDoctors} = useUser();
+  const { setPassword, setUserEmail, setUserAuth, Login, user, getAllDoctors } =
+    useUser();
 
   const handleRegister = () => {
-    history.push("/register");
-  }
+    history.push('/register');
+  };
 
   const handleUserEmail = (event) => {
-    setUserEmail(event.target.value)
-  }
+    setUserEmail(event.target.value);
+  };
 
   const handleUserPass = (event) => {
     setPassword(event.target.value);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let validLogin = await Login();
-    if(validLogin){
+    if (validLogin) {
       setUserAuth(true);
     }
-    history.push("/");
+    history.push('/');
   };
 
   return (
@@ -91,7 +96,12 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 1 }}
+            >
               <TextField
                 onChange={handleUserEmail}
                 margin="normal"

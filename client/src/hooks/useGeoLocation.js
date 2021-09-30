@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+// COULD DO WITH AN ERROR MESSAGE FOR IF A COMPUTER OR BROWSER WON'T LET THE GEOLOCATION WORK
+
 const useGeoLocation = () => {
   const [userLocation, setUserLocation] = useState({
     available: false,
