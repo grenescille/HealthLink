@@ -16,11 +16,18 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useUser } from '../context/UserContext';
 import { MenuItem } from '@mui/material';
 import MarkerMap from './MarkerMap';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+
+import { specialtyList } from '../data/specialtyList';
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
@@ -34,83 +41,89 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  
   let history = useHistory();
 
-  const specialtyList = [
-    {value: "Allergy/Immunologist", label: "Allergy/Immunologist"},
-    {value: 'Cardiologist', label: 'Cardiologist'},
-    {value: 'Dermatologist', label: 'Dermatologist'},
-    {value: 'Family Medicine', label: 'Family Medicine'},
-    {value: 'Gynecologist', label: 'Gynecologist'},
-    {value: 'Medical Internist', label: 'Medical Internist'},
-    {value: 'Medical Geneticist', label: 'Medical Geneticist'},
-    {value: 'Neurologist', label: 'Neurologist'},
-    {value: 'Oncologist', label: 'Oncologist'},
-    {value: 'Ophthalmologist', label: 'Ophthalmologist'},
-    {value: 'Otorhinolaryngologist',label: 'Otorhinolaryngologist'},
-    {value: 'Pathologist', label: 'Pathologist'},
-    {value: 'Pediatrics', label: 'Pediatrics'},
-    {value: 'Pneumologist', label: 'Pneumologist'},
-    {value: 'Physiotherapist', label: 'Physiotherapist'},
-    {value: 'Psychiatrist', label: 'Psychiatrist'},
-    {value: 'Rheumatologist', label: 'Rheumatologist'},
-    {value: 'Urologist', label: 'Urologist'},
-  ];
-  const {isDoctor, setIsDoctor,userName, setUserName, userEmail, setUserEmail, password, setPassword, specialty,setSpecialty,geolocation, setGeolocation,userAge, setUserAge, priceRemote, setPriceRemote,priceOnsite, setPriceOnSite, onSiteAvailability, setOnSiteAvailability, workYears,setWorkYears, createUser, setUserAuth} = useUser();
+  const {
+    isDoctor,
+    setIsDoctor,
+    userName,
+    setUserName,
+    userEmail,
+    setUserEmail,
+    password,
+    setPassword,
+    specialty,
+    setSpecialty,
+    geolocation,
+    setGeolocation,
+    userAge,
+    setUserAge,
+    priceRemote,
+    setPriceRemote,
+    priceOnsite,
+    setPriceOnSite,
+    onSiteAvailability,
+    setOnSiteAvailability,
+    workYears,
+    setWorkYears,
+    createUser,
+    setUserAuth,
+  } = useUser();
 
   const handleClick = () => {
     setIsDoctor(!isDoctor);
-  }
-
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+  };
   const handleOnSiteAvailabilityClick = () => {
     setOnSiteAvailability(!onSiteAvailability);
-  }
+  };
 
   const handleMedicalSpecialty = (event) => {
     setSpecialty(event.target.value);
-  }
+  };
 
   const handleUserPass = (event) => {
     setPassword(event.target.value);
-  }
+  };
 
   const handleUserName = (event) => {
     setUserName(event.target.value);
-  }
+  };
 
   const handleUserEmail = (event) => {
     setUserEmail(event.target.value);
-  }
+  };
 
   const handleUserAge = (event) => {
     setUserAge(event.target.value);
-  }
+  };
 
   const handleWorkYears = (event) => {
     setWorkYears(event.target.value);
-  }
+  };
 
   const setDrPriceRemote = (event) => {
     setPriceRemote(event.target.value);
-  }
+  };
 
   const setDrPriceOnSite = (event) => {
     setPriceOnSite(event.target.value);
-  }
+  };
 
   const handleLogin = () => {
-    history.push("/login");
-  }
+    history.push('/login');
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
     let validUserCreation = await createUser();
-    if(validUserCreation) {
+    if (validUserCreation) {
       setUserAuth(true);
     }
-    history.push("/");
+    history.push('/');
   };
 
   return (
@@ -129,15 +142,26 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <FormGroup>
-            <FormControlLabel control={<Checkbox  checked={!isDoctor} onChange={handleClick}/>} label="I'm a Patient" />
-            <FormControlLabel control={<Checkbox  checked={isDoctor} onChange={handleClick}/>} label="I'm a Doctor" />
+            <FormControlLabel
+              control={<Checkbox checked={!isDoctor} onChange={handleClick} />}
+              label="I'm a Patient"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={isDoctor} onChange={handleClick} />}
+              label="I'm a Doctor"
+            />
           </FormGroup>
           {isDoctor ? (
             <>
               <Typography component="h1" variant="h5">
                 {isDoctor ? 'Doctor' : 'Patient'} Sign up
               </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
+              >
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -204,7 +228,7 @@ export default function SignUp() {
                     >
                       {specialtyList.map((spec) => (
                         <MenuItem key={spec.value} value={spec.value}>
-                        {spec.label}
+                          {spec.label}
                         </MenuItem>
                       ))}
                     </TextField>
@@ -238,31 +262,40 @@ export default function SignUp() {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <MarkerMap />   
+                    <MarkerMap />
                   </Grid>
                   <Grid item xs={12}>
                     <FormControlLabel
-                      control={<Checkbox checked={onSiteAvailability} onClick={handleOnSiteAvailabilityClick} color="primary" />}
+                      control={
+                        <Checkbox
+                          checked={onSiteAvailability}
+                          onClick={handleOnSiteAvailabilityClick}
+                          color="primary"
+                        />
+                      }
                       label="Available for on-site mobilizations"
                     />
                   </Grid>
                   {onSiteAvailability ? (
                     <>
-                    <Grid item xs={12}>
-                      <TextField
-                        type="number"
-                        onChange={setDrPriceOnSite}
-                        value={priceOnsite}
-                        inputProps={{ inputMode: 'decimal', pattern: '[0-9]*' }}
-                        required
-                        fullWidth
-                        id="chargeonsite"
-                        label="Charge Price On Site Appointment"
-                        name="chargeonsite"
-                        autoComplete="charge"
-                      />
-                    </Grid>  
-                  </>
+                      <Grid item xs={12}>
+                        <TextField
+                          type="number"
+                          onChange={setDrPriceOnSite}
+                          value={priceOnsite}
+                          inputProps={{
+                            inputMode: 'decimal',
+                            pattern: '[0-9]*',
+                          }}
+                          required
+                          fullWidth
+                          id="chargeonsite"
+                          label="Charge Price On Site Appointment"
+                          name="chargeonsite"
+                          autoComplete="charge"
+                        />
+                      </Grid>
+                    </>
                   ) : null}
                 </Grid>
                 <Button
@@ -287,7 +320,12 @@ export default function SignUp() {
               <Typography component="h1" variant="h5">
                 {isDoctor ? 'Doctor' : 'Patient'} Sign up
               </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
+              >
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField

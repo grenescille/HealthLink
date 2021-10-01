@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -12,8 +12,8 @@ const Input = styled(MuiInput)`
 `;
 
 export default function InputSlider(props) {
-  const {radiusChanger} = props;  
-  const [value, setValue] = React.useState(1);
+  const { radiusChanger } = props;
+  const [value, setValue] = useState(1);
 
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
@@ -46,7 +46,7 @@ export default function InputSlider(props) {
             value={typeof value === 'number' ? value : 0}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
-            max = {50}
+            max={50}
           />
         </Grid>
         <Grid item>
