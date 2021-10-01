@@ -10,6 +10,7 @@ const useGeoLocation = () => {
   });
 
   const success = (location) => {
+    console.log('location ', location);
     // location.coords.latitude
     setUserLocation({
       available: true,
@@ -29,6 +30,7 @@ const useGeoLocation = () => {
   };
 
   useEffect(() => {
+    // THIS ISN'T WORKING RELIABLY YET
     //if browser doesn't support geolocation
     console.log('useefect inside usegeolocation hook');
     if (!navigator.geolocation) {

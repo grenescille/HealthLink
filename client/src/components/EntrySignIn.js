@@ -16,6 +16,7 @@ import { useHistory } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 
 function Copyright(props) {
+  // MOVE THIS DOWN BELOW MAIN EXPORT FUNC
   return (
     <Typography
       variant="body2"
