@@ -53,85 +53,85 @@ export const UserContextProvider = ({ children }) => {
 
   //when we want try a call, we neede to have the callee id (id)
 
-  const createUser = () => {
-    console.log('inside user!');
+  // const createUser = () => {
+  //   console.log('inside user!');
 
-    if (isDoctor) {
-      console.log('i am a doc!');
-      return fetch(`${process.env.REACT_APP_HOST}/doctor`, {
-        method: 'POST',
-        credentials: 'include',
-        mode: 'cors',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: userName,
-          age: userAge,
-          workyears: workYears,
-          onsiteavailability: onSiteAvailability,
-          email: userEmail,
-          password: password,
-          specialty: specialty,
-          location: geolocation,
-          priceremote: priceRemote,
-          priceonsite: priceOnSite,
-          peerid: peerId,
-          radius: userRadius,
-        }),
-      })
-        .then((res) => {
-          reqStatus.current = res.status;
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          if (reqStatus.current === 200) {
-            setUser(data);
-            return true;
-          } else {
-            return false;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          return false;
-        });
-    } else {
-      console.log('i am a patient!');
-      return fetch(`${process.env.REACT_APP_HOST}/patient`, {
-        method: 'POST',
-        credentials: 'include',
-        mode: 'cors',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: userName,
-          age: userAge,
-          email: userEmail,
-          password: password,
-        }),
-      })
-        .then((res) => {
-          reqStatus.current = res.status;
-          return res.json();
-        })
-        .then((data) => {
-          if (reqStatus.current === 200) {
-            console.log(data);
-            setUser(data);
-            return true;
-          } else {
-            return false;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          return false;
-        });
-    }
-  };
+  //   if (isDoctor) {
+  //     console.log('i am a doc!');
+  //     return fetch(`${process.env.REACT_APP_HOST}/doctor`, {
+  //       method: 'POST',
+  //       credentials: 'include',
+  //       mode: 'cors',
+  //       headers: {
+  //         'content-type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         name: userName,
+  //         age: userAge,
+  //         workyears: workYears,
+  //         onsiteavailability: onSiteAvailability,
+  //         email: userEmail,
+  //         password: password,
+  //         specialty: specialty,
+  //         location: geolocation,
+  //         priceremote: priceRemote,
+  //         priceonsite: priceOnSite,
+  //         peerid: peerId,
+  //         radius: userRadius,
+  //       }),
+  //     })
+  //       .then((res) => {
+  //         reqStatus.current = res.status;
+  //         return res.json();
+  //       })
+  //       .then((data) => {
+  //         console.log(data);
+  //         if (reqStatus.current === 200) {
+  //           setUser(data);
+  //           return true;
+  //         } else {
+  //           return false;
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         return false;
+  //       });
+  //   } else {
+  //     console.log('i am a patient!');
+  //     return fetch(`${process.env.REACT_APP_HOST}/patient`, {
+  //       method: 'POST',
+  //       credentials: 'include',
+  //       mode: 'cors',
+  //       headers: {
+  //         'content-type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         name: userName,
+  //         age: userAge,
+  //         email: userEmail,
+  //         password: password,
+  //       }),
+  //     })
+  //       .then((res) => {
+  //         reqStatus.current = res.status;
+  //         return res.json();
+  //       })
+  //       .then((data) => {
+  //         if (reqStatus.current === 200) {
+  //           console.log(data);
+  //           setUser(data);
+  //           return true;
+  //         } else {
+  //           return false;
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         return false;
+  //       });
+  //   }
+  // };
 
   // const getAllDoctors = () => {
   //      fetch(`${process.env.REACT_APP_HOST}/doctors`)

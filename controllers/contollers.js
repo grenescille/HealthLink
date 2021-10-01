@@ -37,42 +37,53 @@ exports.getAllDoctors = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+exports.doctorLogin = async (req, res) => {
+  const { email, password } = req.body;
+  const userDoctor = await db.Doctors.findOne({ where: { email: email } });
+
   try {
-    console.log('here!!');
+    if (userDoctor) {
+      const passValidation = await bcrypt.compare(
+        password,
+        userDoctor.password
+      );
+      if (!passValidation) {
+        res.status(400).send({ message: 'Invalid credentials' });
+      } else {
+        req.session.uid = userDoctor.id;
+        const { password, ...doctorData } = userDoctor;
+        res.status(200).send(doctorData);
+      }
+    } else {
+      res.status(409).send({ message: 'Invalid credentials' });
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+exports.patientLogin = async (req, res) => {
+  try {
     const { email, password } = req.body;
-    console.log('email: ', email, ' || pass: ', password);
     const userPatient = await db.Patients.findOne({ where: { email: email } });
-    console.log(userPatient);
-    const userDoctor = await db.Doctors.findOne({ where: { email: email } });
-    console.log(userDoctor);
+
     if (userPatient) {
       const passValidation = await bcrypt.compare(
         password,
         userPatient.password
       );
       if (!passValidation) {
-        console.log('shit, bad pass');
-        throw new Error();
+        res.status(400).send({ message: 'Invalid credentials' });
+      } else {
+        req.session.uid = userPatient.id;
+        const { password, ...patientData } = userPatient;
+        res.status(200).send(patientData);
       }
-      req.session.uid = userPatient._id;
-      res.status(200).send(userPatient);
-    } else if (userDoctor) {
-      const passValidation = await bcrypt.compare(
-        password,
-        userDoctor.password
-      );
-      if (!passValidation) {
-        console.log('shit, bad pass');
-        throw new Error();
-      }
-      req.session.uid = userDoctor._id;
-      res.status(200).send(userDoctor);
     } else {
-      res.status(409).send({ message: 'User does not exists!' });
+      res.status(409).send({ message: 'Invalid credentials' });
     }
   } catch (err) {
-    res.status(500).send(null);
+    res.status(500).send(err);
   }
 };
 
