@@ -244,7 +244,7 @@ exports.addAppointment = async (req, res) => {
 
     res.status(200).send(appointement);
   } catch (err) {
-    console.log('error');
+    console.log(err);
     res.status(500).send(err);
   }
 };

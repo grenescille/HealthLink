@@ -4,6 +4,7 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import * as L from 'leaflet';
 import 'leaflet-defaulticon-compatibility';
 import { Map, TileLayer, Marker, Popup, Circle, Pane } from 'react-leaflet';
+import mockup from '../data/mockup.json';
 import useGeoLocation from '../hooks/useGeoLocation';
 import InputSlider from './SliderItem';
 import { useUser } from '../context/UserContext';
@@ -67,7 +68,7 @@ const MarkerMap = () => {
   //I will mount one of two possible setups: Doctor setup (only one draggable marker with customizable radius) or User setup (several non-draggable markers representing doctors locations and its range radius)
 
   useEffect(() => {
-    // console.log('MOUNTING AGAIN!');
+    console.log('MOUNTING AGAIN!');
   }, []);
 
   useEffect(() => {
@@ -130,11 +131,11 @@ const MarkerMap = () => {
   };
 
   const mouseOverHandler = () => {
-    // console.log('mouse over');
+    console.log('mouse over');
   };
 
   const mouseOutHandler = () => {
-    // console.log('mouse out');
+    console.log('mouse out');
   };
 
   const chooseDoctor = (user) => {
@@ -148,6 +149,8 @@ const MarkerMap = () => {
       age: user.age,
     });
   };
+
+  //HERE
 
   return (
     <>
@@ -189,10 +192,6 @@ const MarkerMap = () => {
               onmouseover={mouseOverHandler}
               onmouseout={mouseOutHandler}
             >
-              {/* {console.log(
-                'my coordinates: ',
-                feature.geometry.coordinates.reverse()
-              )} */}
               <Circle
                 center={feature.geometry.coordinates.reverse()}
                 fillColor="blue"
@@ -200,6 +199,7 @@ const MarkerMap = () => {
                 weight="0"
                 radius={1000 * feature.properties.radius}
               />
+              {feature.geometry.coordinates.reverse()}
               <Popup>
                 <OutlinedCard
                   user={feature.properties}

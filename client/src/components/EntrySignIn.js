@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useHistory } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import { Login } from '../APIcalls/ApiService';
 
 function Copyright(props) {
   return (
@@ -56,7 +57,8 @@ export default function SignInSide() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
+
     let validLogin = await Login();
     if (validLogin) {
       setUserAuth(true);

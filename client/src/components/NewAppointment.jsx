@@ -51,13 +51,14 @@ const AppointmentCreator = ({ authorization }) => {
     setRemoteAppointment,
     createAppointment,
     userId,
+    user,
   } = useUser();
   // console.log('hello word', useUser);
   const [selectedDate, setSelectedDate] = useState(new Date());
   let formattedDate = '';
   // console.log('@appointment creator: date: ', selectedDate);
-  // console.log('@appointment creator: selected doctor', selectedDoctor);
-
+  // // console.log('@appointment creator: selected doctor', selectedDoctor);
+  // console.log('NewAppoint', user);
   useEffect(() => {
     // console.log('newApp useeffect date: ', selectedDate);
     formattedDate = format(selectedDate, 'yyyy-MM-dd HH:mm');

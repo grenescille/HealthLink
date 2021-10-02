@@ -172,6 +172,7 @@ export const UserContextProvider = ({ children }) => {
         // console.log('is doctor?@usercontext:', data.isdoctor);
         setUser(data);
         setIsDoctor(data.isdoctor);
+        console.log('userContext-user ', user);
         if (reqStatus.current === 200) {
           // console.log('user authorized from usercontext');
           return true;
