@@ -29,9 +29,7 @@ for (const file of files) {
 
 //this loop is done after for(const file of files) because we want to be sure all models exist in the db object
 for (const model in db) {
-  if (db[model].associate) {
-    db[model].associate(db); //we run through all the models and execute any associations presents in the model definition
-  }
+  if (db[model].associate) db[model].associate(db); //we run through all the models and execute any associations presents in the model definition
 }
 
 db.sequelize = sequelize;

@@ -19,6 +19,7 @@ import MarkerMap from './MarkerMap';
 import { useHistory } from 'react-router-dom';
 
 import { specialtyList } from '../data/specialtyList';
+import { patientInitial, doctorInitial } from '../data/initialValue';
 
 function Copyright(props) {
   return (

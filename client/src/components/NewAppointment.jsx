@@ -50,8 +50,9 @@ const AppointmentCreator = ({ authorization }) => {
     remoteAppointment,
     setRemoteAppointment,
     createAppointment,
+    userId,
   } = useUser();
-
+  console.log('hello word', useUser);
   const [selectedDate, setSelectedDate] = useState(new Date());
   let formattedDate = '';
   console.log('@appointment creator: date: ', selectedDate);
@@ -69,7 +70,7 @@ const AppointmentCreator = ({ authorization }) => {
   //will handle the request to call
   const handleMeetingSubmit = () => {
     //we might need to pass some data to the create appointment
-    createAppointment(selectedDate);
+    createAppointment(selectedDate, userId);
     history.push('/');
   };
 

@@ -29,16 +29,24 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.GEOMETRY('POINT', 4326),
       allowNull: true,
     },
+    DoctorId: {
+      type: DataTypes.UUID,
+      // references: { model: db.Patient, key: db.Patient.id },
+    },
+    PatientId: {
+      type: DataTypes.UUID,
+      // references: { model: Doctor, key: Doctor.id },
+    },
   });
 
-  Appointment.associate = (db) => {
-    db.Appointments.belongsTo(db.Patients, {
-      onDelete: 'CASCADE',
-    });
-    db.Appointments.belongsTo(db.Doctors, {
-      onDelete: 'CASCADE',
-    });
-  };
+  // Appointment.associate = (db) => {
+  //   db.Appointments.belongsTo(db.Patients, {
+  //     onDelete: 'CASCADE',
+  //   });
+  //   db.Appointments.belongsTo(db.Doctors, {
+  //     onDelete: 'CASCADE',
+  //   });
+  // };
 
   return Appointment;
 };

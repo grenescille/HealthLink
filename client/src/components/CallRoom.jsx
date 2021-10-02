@@ -1,5 +1,4 @@
-import React from 'react';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Container } from '@material-ui/core';
 import { CallContextProvider } from '../context/CallContext';
 import VideoChat from './VideoChat';
