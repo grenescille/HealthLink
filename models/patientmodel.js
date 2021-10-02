@@ -46,7 +46,6 @@ module.exports = (sequelize, DataTypes) => {
 
   Patient.associate = (db) => {
     db.Patients.belongsToMany(db.Doctors, {
-      as: 'Doctor',
       through: 'Appointments',
     });
     // db.Patients.belongsToMany(db.Doctors, {through: "Appointments"});

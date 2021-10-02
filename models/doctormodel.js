@@ -70,7 +70,6 @@ module.exports = (sequelize, DataTypes) => {
 
   Doctor.associate = (db) => {
     db.Doctors.belongsToMany(db.Patients, {
-      as: 'Patient',
       through: 'Appointments',
     });
     // db.Doctors.(db.Appointments, {foreignKey: "Appointments"});

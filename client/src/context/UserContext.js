@@ -58,10 +58,10 @@ export const UserContextProvider = ({ children }) => {
   //when we want try a call, we neede to have the callee id (id)
 
   const createUser = () => {
-    console.log('inside user!');
+    // console.log('inside user!');
 
     if (isDoctor) {
-      console.log('i am a doc!');
+      // console.log('i am a doc!');
       return fetch(`${process.env.REACT_APP_HOST}/doctor`, {
         method: 'POST',
         credentials: 'include',
@@ -102,7 +102,7 @@ export const UserContextProvider = ({ children }) => {
           return false;
         });
     } else {
-      console.log('i am a patient!');
+      // console.log('i am a patient!');
       return fetch(`${process.env.REACT_APP_HOST}/patient`, {
         method: 'POST',
         credentials: 'include',
@@ -123,7 +123,7 @@ export const UserContextProvider = ({ children }) => {
         })
         .then((data) => {
           if (reqStatus.current === 200) {
-            console.log(data);
+            // console.log(data);
             setUser(data);
             return true;
           } else {
@@ -162,21 +162,21 @@ export const UserContextProvider = ({ children }) => {
       }),
     })
       .then((res) => {
-        console.log('response status: ', res.status);
+        // console.log('response status: ', res.status);
         reqStatus.current = res.status;
         return res.json();
       })
       .then((data) => {
-        console.log('mydata VALUE: ', data);
-        console.log('my status VALUE:', reqStatus);
-        console.log('is doctor?@usercontext:', data.isdoctor);
+        // console.log('mydata VALUE: ', data);
+        // console.log('my status VALUE:', reqStatus);
+        // console.log('is doctor?@usercontext:', data.isdoctor);
         setUser(data);
         setIsDoctor(data.isdoctor);
         if (reqStatus.current === 200) {
-          console.log('user authorized from usercontext');
+          // console.log('user authorized from usercontext');
           return true;
         } else {
-          console.log('not authorized on usercontext', reqStatus);
+          // console.log('not authorized on usercontext', reqStatus);
           return false;
         }
       })
@@ -184,7 +184,7 @@ export const UserContextProvider = ({ children }) => {
         console.log('error: ', err);
         return false;
       });
-    console.log('i am here?');
+    // console.log('i am here?');
   };
 
   const Logout = () => {
@@ -199,7 +199,7 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const createAppointment = (appointmentDateAndTime, uId) => {
-    console.log('lets fetch appointments console UID:', user);
+    // console.log('lets fetch appointments console UID:', user);
     fetch(`${process.env.REACT_APP_HOST}/appointment`, {
       method: 'POST',
       credentials: 'include',
