@@ -49,7 +49,7 @@ const CallRoom = () => {
   const toggle = () => {
     const buffer = videoCall;
     setvideoCall(!buffer);
-    console.log(videoCall);
+    // console.log(videoCall);
   };
 
   // if(!authorization){

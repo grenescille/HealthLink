@@ -52,18 +52,18 @@ const AppointmentCreator = ({ authorization }) => {
     createAppointment,
     userId,
   } = useUser();
-  console.log('hello word', useUser);
+  // console.log('hello word', useUser);
   const [selectedDate, setSelectedDate] = useState(new Date());
   let formattedDate = '';
-  console.log('@appointment creator: date: ', selectedDate);
-  console.log('@appointment creator: selected doctor', selectedDoctor);
+  // console.log('@appointment creator: date: ', selectedDate);
+  // console.log('@appointment creator: selected doctor', selectedDoctor);
 
   useEffect(() => {
-    console.log('newApp useeffect date: ', selectedDate);
+    // console.log('newApp useeffect date: ', selectedDate);
     formattedDate = format(selectedDate, 'yyyy-MM-dd HH:mm');
   }, [selectedDate]);
   if (!authorization) {
-    console.log('not authorized!');
+    // console.log('not authorized!');
     return <Redirect to="login" />;
   }
 

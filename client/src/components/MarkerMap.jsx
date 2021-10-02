@@ -17,11 +17,11 @@ import { Typography } from '@mui/material';
 const getAllDoctors = () => {
   return fetch(`${process.env.REACT_APP_HOST}/doctors`)
     .then((res) => {
-      console.log('my headers', res.headers);
+      // console.log('my headers', res.headers);
       return res.json();
     })
     .then((data) => {
-      console.log('my geojson: ', data);
+      // console.log('my geojson: ', data);
       return data;
       // setDoctorsGeoJSON(data)}
     })
@@ -47,43 +47,43 @@ const MarkerMap = () => {
     lat: location.coordinates.lat,
     lng: location.coordinates.lng,
   });
-  console.log('userLocation = ', userLocation);
-  console.log(
-    'location: ',
-    location.available,
-    ' location coords:',
-    location.coordinates
-  );
+  // console.log('userLocation = ', userLocation);
+  // console.log(
+  //   'location: ',
+  //   location.available,
+  //   ' location coords:',
+  //   location.coordinates
+  // );
   // const [readyToRenderDoctor, setReadyToRenderDoctor] = useState(false);
   // const [readyToRenderPatient, setReadyToRenderPatient] = useState(false);
 
   const readyToRenderDoctor = useRef(false);
   const readyToRenderPatient = useRef(false);
 
-  console.log('userRadius = ', userRadius);
+  // console.log('userRadius = ', userRadius);
 
   // const [appointmentCircle, setAppointmentCircle] = useState();
 
   //I will mount one of two possible setups: Doctor setup (only one draggable marker with customizable radius) or User setup (several non-draggable markers representing doctors locations and its range radius)
 
   useEffect(() => {
-    console.log('MOUNTING AGAIN!');
+    // console.log('MOUNTING AGAIN!');
   }, []);
 
   useEffect(() => {
-    console.log(
-      '@useeffect location: ',
-      location.available,
-      ' location coords:',
-      location.coordinates
-    );
-    console.log('inside useeffect!');
-    console.log(
-      'useeffect: ',
-      location.coordinates.lat,
-      ' ',
-      location.coordinates.lng
-    );
+    // console.log(
+    //   '@useeffect location: ',
+    //   location.available,
+    //   ' location coords:',
+    //   location.coordinates
+    // );
+    // console.log('inside useeffect!');
+    // console.log(
+    //   'useeffect: ',
+    //   location.coordinates.lat,
+    //   ' ',
+    //   location.coordinates.lng
+    // );
     if (location.coordinates.lat === '' && location.coordinates.lng === '') {
       return;
     } else {
@@ -91,15 +91,15 @@ const MarkerMap = () => {
         lat: location.coordinates.lat,
         lng: location.coordinates.lng,
       };
-      console.log('user location on use effect ', userLocation.current);
+      // console.log('user location on use effect ', userLocation.current);
       getAllDoctors().then((data) => {
         readyToRenderDoctor.current = true;
         if (!data.type) {
-          console.log('GEOJSON IS NULL!!');
+          // console.log('GEOJSON IS NULL!!');
           return;
         } else {
-          console.log('DONE LETS GO!');
-          console.log(data);
+          // console.log('DONE LETS GO!');
+          // console.log(data);
           readyToRenderPatient.current = true;
           setdoctorsGeoJSON(data);
         }
@@ -121,8 +121,8 @@ const MarkerMap = () => {
       coordinates: [event.target.getLatLng().lng, event.target.getLatLng().lat],
     });
     // console.log(userLocation);
-    console.log(userLocation.current);
-    console.log('my geolocation', geolocation);
+    // console.log(userLocation.current);
+    // console.log('my geolocation', geolocation);
   };
 
   const mobilizationRadiusChange = (newRadius) => {
@@ -130,11 +130,11 @@ const MarkerMap = () => {
   };
 
   const mouseOverHandler = () => {
-    console.log('mouse over');
+    // console.log('mouse over');
   };
 
   const mouseOutHandler = () => {
-    console.log('mouse out');
+    // console.log('mouse out');
   };
 
   const chooseDoctor = (user) => {
@@ -163,7 +163,7 @@ const MarkerMap = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMaps</a>'
         />
 
-        {console.log('my geo at marker:', doctorsGeoJSON)}
+        {/* {console.log('my geo at marker:', doctorsGeoJSON)} */}
         {isDoctor ? (
           readyToRenderDoctor.current ? (
             <Marker
@@ -189,10 +189,10 @@ const MarkerMap = () => {
               onmouseover={mouseOverHandler}
               onmouseout={mouseOutHandler}
             >
-              {console.log(
+              {/* {console.log(
                 'my coordinates: ',
                 feature.geometry.coordinates.reverse()
-              )}
+              )} */}
               <Circle
                 center={feature.geometry.coordinates.reverse()}
                 fillColor="blue"

@@ -42,14 +42,14 @@ const Home = ({ authorization }) => {
   const classes = useStyles();
 
   if (!authorization) {
-    console.log('not authorized!');
+    // console.log('not authorized!');
     return <Redirect to="login" />;
   }
 
   const visualizeUserAppointments = () => {};
 
   const createNewAppointement = () => {
-    console.log('button clicked.. going to fetch all docs');
+    // console.log('button clicked.. going to fetch all docs');
 
     history.push('/new');
   };

@@ -4,7 +4,7 @@ import DateFnsUtils from '@date-io/date-fns'; // choose your lib
 
 function BasicDateTimePicker({ setSelectedDate, selectedDate }) {
   const handleDateChange = (date) => {
-    console.log(date);
+    // console.log(date);
     setSelectedDate(date);
   };
 

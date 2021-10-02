@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AppointmentsVisualizer = ({ authorization }) => {
   if (!authorization) {
-    console.log('not authorized!');
+    // console.log('not authorized!');
     return <Redirect to="login" />;
   }
 

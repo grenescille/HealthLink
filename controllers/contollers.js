@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 //get all doctors
 exports.getAllDoctors = async (req, res) => {
   try {
-    console.log('welcome to getAlldoctors');
+    // console.log('welcome to getAlldoctors');
     const allDoctors = await db.Doctors.findAll();
 
     //i need all doctors in a GeoJson Format
@@ -39,20 +39,20 @@ exports.getAllDoctors = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    console.log('here!!');
+    // console.log('here!!');
     const { email, password } = req.body;
-    console.log('email: ', email, ' || pass: ', password);
+    // console.log('email: ', email, ' || pass: ', password);
     const userPatient = await db.Patients.findOne({ where: { email: email } });
-    console.log(userPatient);
+    // console.log(userPatient);
     const userDoctor = await db.Doctors.findOne({ where: { email: email } });
-    console.log(userDoctor);
+    // console.log(userDoctor);
     if (userPatient) {
       const passValidation = await bcrypt.compare(
         password,
         userPatient.password
       );
       if (!passValidation) {
-        console.log('shit, bad pass');
+        // console.log('shit, bad pass');
         throw new Error();
       }
       req.session.uid = userPatient._id;
@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
         userDoctor.password
       );
       if (!passValidation) {
-        console.log('shit, bad pass');
+        // console.log('shit, bad pass');
         throw new Error();
       }
       req.session.uid = userDoctor._id;
@@ -92,7 +92,7 @@ exports.logout = (req, res) => {
 //get patient by id
 exports.getPatient = async (req, res) => {
   try {
-    console.log('welcome to getPatient');
+    // console.log('welcome to getPatient');
     const patient = await db.Patients.findAll({
       where: { id: req.params.id },
     });
@@ -106,14 +106,14 @@ exports.getPatient = async (req, res) => {
 //get doctor by id
 exports.getDoctor = async (req, res) => {
   try {
-    console.log('welcome to getDoctor: ', req.params.id);
+    // console.log('welcome to getDoctor: ', req.params.id);
     const doctor = await db.Doctors.findAll({
       where: { id: req.params.id },
     });
 
     res.status(200).send(doctor);
   } catch (err) {
-    console.log('error!');
+    // console.log('error!');
     res.status(500).send(err);
   }
 };
@@ -121,15 +121,15 @@ exports.getDoctor = async (req, res) => {
 //create a patient
 exports.addPatient = async (req, res) => {
   try {
-    console.log('welcome to addPatient');
+    // console.log('welcome to addPatient');
     let { name, age, email, username, password, stripeid, location, peerid } =
       req.body;
-    console.log(name, ' ', age, ' ', email, ' ', password);
+    // console.log(name, ' ', age, ' ', email, ' ', password);
     let patientExist = false;
     const existingPatients = await db.Patients.findAll();
     for (patient of existingPatients) {
       if (patient.email === email) {
-        console.log('patient exists');
+        // console.log('patient exists');
         patientExist = true;
         break;
       }
@@ -140,14 +140,14 @@ exports.addPatient = async (req, res) => {
     } else {
       //10 stands for number of times the password will be encrypted. More encryption times = more secure, but also more slower too.
       const hashPass = await bcrypt.hash(password, 10);
-      console.log(hashPass);
+      // console.log(hashPass);
       const patient = await db.Patients.create({
         name,
         age,
         email,
         password: hashPass,
       });
-      console.log(patient);
+      // console.log(patient);
       req.session.uid = patient._id;
       res.status(200).send(patient);
     }
@@ -159,7 +159,7 @@ exports.addPatient = async (req, res) => {
 //create a doctor
 exports.addDoctor = async (req, res) => {
   try {
-    console.log('welcome to addDoctor');
+    // console.log('welcome to addDoctor');
     let {
       name,
       age,
@@ -176,7 +176,7 @@ exports.addDoctor = async (req, res) => {
       radius,
     } = req.body;
 
-    console.log(location.type);
+    // console.log(location.type);
     let doctorExists = false;
     const existingDoctors = await db.Doctors.findAll();
     for (doctor of existingDoctors) {
@@ -187,7 +187,7 @@ exports.addDoctor = async (req, res) => {
     }
     if (doctorExists) {
       //if user already exist, we will respond to the request with a null answer
-      console.log('doctor exists');
+      // console.log('doctor exists');
       res.status(409).send({ message: 'User already exists!' });
     } else {
       const hashPass = await bcrypt.hash(password, 10);
@@ -217,7 +217,7 @@ exports.addDoctor = async (req, res) => {
 // create a appointment
 exports.addAppointment = async (req, res) => {
   try {
-    console.log('here in addappointment');
+    // console.log('here in addappointment');
     const {
       remoteappointment,
       onsiteappointment,
@@ -229,7 +229,7 @@ exports.addAppointment = async (req, res) => {
     } = req.body;
     // const {remoteappointment,onsiteappointment,date,roomid,price, DoctorId, PatientId} = req.body;
 
-    console.log('d', 'p', req.body, req.body.DoctorId);
+    // console.log('d', 'p', req.body, req.body.DoctorId);
 
     const appointement = await db.Appointments.create({
       remoteappointment: remoteappointment,
@@ -251,7 +251,7 @@ exports.addAppointment = async (req, res) => {
 
 exports.getDoctorAppointments = async (req, res) => {
   try {
-    console.log('welcome to getDoctor: ', req.params.id);
+    // console.log('welcome to getDoctor: ', req.params.id);
     //attributes = SELECT
     const doctorAppointments = await db.Appointments.findAll({
       attributes: ['date', 'roomid'],
@@ -273,7 +273,7 @@ exports.getDoctorAppointments = async (req, res) => {
 
 exports.getPatientAppointments = async (req, res) => {
   try {
-    console.log('welcome to getDoctor: ', req.params.id);
+    // console.log('welcome to getDoctor: ', req.params.id);
     //attributes = SELECT
     const doctorAppointments = await db.Appointments.findAll({
       attributes: [
@@ -309,22 +309,22 @@ exports.callHandshake = (req, res) => {
     },
   });
 
-  console.log('here in callhandshake!');
+  // console.log('here in callhandshake!');
 
   io.on('connection', (socket) => {
     socket.emit('ownuser', socket.id); //as soon client makes a request to connect with the server, a socket is created, and here we handover this client socket.id with the emit() function
 
-    console.log('connection established');
+    // console.log('connection established');
 
     socket.on('disconnect', () => {
-      console.log('disconnected');
+      // console.log('disconnected');
       socket.broadcast.emit('callended'); //all users will be notified that the call has been terminated
     });
 
     socket.on(
       'call',
       ({ destinationUser, signallingData, senderUser, senderName }) => {
-        console.log('going to call');
+        // console.log('going to call');
         io.to(destinationUser).emit('calluser', {
           signal: signallingData,
           senderUser,
@@ -334,7 +334,7 @@ exports.callHandshake = (req, res) => {
     );
 
     socket.on('answer', (data) => {
-      console.log('going to answer');
+      // console.log('going to answer');
       io.to(data.callerId).emit('callaccepted', data.signaldata);
     });
   });
