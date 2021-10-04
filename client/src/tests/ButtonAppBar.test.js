@@ -38,6 +38,6 @@ describe('ButtonAppBar component', () => {
     );
     const logout = screen.getByTestId('logout');
     fireEvent.click(logout);
+    expect(logout.value).toBe(<Redirect to="/login" />);
   });
-  expect(logout.value).toBe(<Redirect to="/login" />);
 });
