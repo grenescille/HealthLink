@@ -1,5 +1,6 @@
 import ButtonAppBar from '../components/ButtonAppBar';
 import { screen, render, queryByAttribute } from '@testing-library/react';
+import { useUser, UserContextProvider } from '../context/UserContext';
 
 describe('ButtonAppBar component', () => {
   test('should match the snapshot', () => {

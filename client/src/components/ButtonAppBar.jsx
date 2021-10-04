@@ -6,8 +6,18 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Logout } from '../APIcalls/ApiService';
+import { useUser } from '../context/UserContext';
+import { useHistory } from 'react-router-dom';
 
 export default function ButtonAppBar() {
+  const history = useHistory();
+  const { setUserAuth } = useUser();
+  const handleLogout = () => {
+    Logout();
+    setUserAuth(false);
+    history.push('/login');
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -29,7 +39,9 @@ export default function ButtonAppBar() {
           >
             News
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={handleLogout}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

@@ -66,16 +66,16 @@
 //     });
 // };
 
-// const Logout = () => {
-//   fetch(`${process.env.REACT_APP_HOST}/logout`, {
-//     method: 'POST',
-//     headers: {
-//       'content-type': 'application/json',
-//     },
-//   })
-//     .then((res) => res.json())
-//     .then((data) => console.log(data));
-// };
+export const Logout = () => {
+  fetch(`${process.env.REACT_APP_HOST}/logout`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data));
+};
 
 // const createAppointment = (appointmentDateAndTime, uId) => {
 //   // console.log('lets fetch appointments console UID:', user);
