@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,15 +8,15 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Logout } from '../APIcalls/ApiService';
 import { useUser } from '../context/UserContext';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { userAuth, setUserAuth } from '../context/UserContext';
 
 export default function ButtonAppBar() {
-  const history = useHistory();
-  const { setUserAuth } = useUser();
+  const { userAuth, setUserAuth } = useUser;
   const handleLogout = () => {
     Logout();
     setUserAuth(false);
-    history.push('/login');
+    return <Redirect to="/login" />;
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -39,7 +39,7 @@ export default function ButtonAppBar() {
           >
             News
           </Typography>
-          <Button color="inherit" onClick={handleLogout}>
+          <Button color="inherit" data-testid="logout" onClick={handleLogout}>
             Logout
           </Button>
         </Toolbar>

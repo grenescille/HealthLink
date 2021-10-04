@@ -39,6 +39,7 @@ exports[`ButtonAppBar component should match the snapshot 1`] = `
       </div>
       <button
         class="MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButtonBase-root css-1y942vo-MuiButtonBase-root-MuiButton-root"
+        data-testid="logout"
         tabindex="0"
         type="button"
       >
