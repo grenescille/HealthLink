@@ -200,7 +200,7 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const createAppointment = (appointmentDateAndTime, uId) => {
-    // console.log('lets fetch appointments console UID:', user);
+    console.log('lets fetch appointments console UID:', user);
     fetch(`${process.env.REACT_APP_HOST}/appointment`, {
       method: 'POST',
       credentials: 'include',
