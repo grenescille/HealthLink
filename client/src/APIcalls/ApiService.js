@@ -47,15 +47,14 @@
 //     .catch((err) => console.log(err));
 // };
 
-// const Login = () => {
+// const Login = (login) => {
 //   return fetch(`${process.env.REACT_APP_HOST}/login`, {
 //     method: 'POST',
 //     headers: {
 //       'content-type': 'application/json',
 //     },
 //     body: JSON.stringify({
-//       email: userEmail,
-//       password: password,
+//       ...login,
 //     }),
 //   })
 //     .then((res) => {
@@ -65,7 +64,6 @@
 //       console.log('error: ', err);
 //       return false;
 //     });
-//   // console.log('i am here?');
 // };
 
 // const Logout = () => {

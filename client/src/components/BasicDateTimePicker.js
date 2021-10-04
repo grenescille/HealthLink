@@ -11,11 +11,12 @@ function BasicDateTimePicker({ setSelectedDate, selectedDate }) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DateTimePicker
+        data-testid="DateTimePickerId"
         label="DateTimePicker"
         inputVariant="outlined"
-        minDate={new Date()}
+        minDate={Date.now()}
         value={selectedDate}
-        onChange={handleDateChange}
+        onChange={(e) => handleDateChange(e.target.value)}
         format="yyyy-MM-dd HH:mm:ss"
       />
     </MuiPickersUtilsProvider>
