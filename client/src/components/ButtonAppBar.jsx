@@ -9,13 +9,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Logout } from '../APIcalls/ApiService';
 import { useUser } from '../context/UserContext';
 import { Redirect } from 'react-router-dom';
-import { userAuth, setUserAuth } from '../context/UserContext';
 
 export default function ButtonAppBar() {
-  const { userAuth, setUserAuth } = useUser;
+  const { userAuth, setUserAuth } = useUser();
   const handleLogout = () => {
     Logout();
     setUserAuth(false);
+
     return <Redirect to="/login" />;
   };
   return (
