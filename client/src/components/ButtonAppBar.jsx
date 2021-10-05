@@ -8,15 +8,16 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Logout } from '../APIcalls/ApiService';
 import { useUser } from '../context/UserContext';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 export default function ButtonAppBar() {
   const { userAuth, setUserAuth } = useUser();
+  const history = useHistory();
   const handleLogout = () => {
     Logout();
     setUserAuth(false);
-
-    return <Redirect to="/login" />;
+    history.push('/login');
+    // return <Redirect to="/login" />;
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
