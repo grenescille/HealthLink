@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
   try {
     // console.log('here!!');
     const { email, password } = req.body;
-    // console.log('email: ', email, ' || pass: ', password);
+    console.log('email: ', email, ' || pass: ', password);
     const userPatient = await db.Patients.findOne({ where: { email: email } });
     // console.log(userPatient);
     const userDoctor = await db.Doctors.findOne({ where: { email: email } });

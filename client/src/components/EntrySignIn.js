@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +16,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { login } from '../APIcalls/ApiService';
+
+const initialLoginState = { email: '', password: '' };
 
 function Copyright(props) {
   return (
@@ -42,13 +44,15 @@ export default function SignInSide() {
 
   const { setPassword, setUserEmail, setUserAuth, Login, user, getAllDoctors } =
     useUser();
+  const [userLogin, setUserLogin] = useState(initialLoginState);
 
   const handleRegister = () => {
     history.push('/register');
   };
 
-  const handleUserEmail = (event) => {
-    setUserEmail(event.target.value);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserLogin((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleUserPass = (event) => {
@@ -59,13 +63,14 @@ export default function SignInSide() {
     event.preventDefault();
     // const data = new FormData(event.currentTarget);
 
-    let validLogin = await Login();
+    let validLogin = await login(userLogin);
     console.log(validLogin);
     if (validLogin) {
       setUserAuth(true);
     }
     history.push('/');
   };
+  // console.log(userLogin);
 
   return (
     <ThemeProvider theme={theme}>
@@ -107,7 +112,7 @@ export default function SignInSide() {
               sx={{ mt: 1 }}
             >
               <TextField
-                onChange={handleUserEmail}
+                onChange={handleChange}
                 margin="normal"
                 required
                 fullWidth
@@ -118,7 +123,7 @@ export default function SignInSide() {
                 autoFocus
               />
               <TextField
-                onChange={handleUserPass}
+                onChange={handleChange}
                 margin="normal"
                 required
                 fullWidth
