@@ -42,8 +42,7 @@ const theme = createTheme();
 export default function SignInSide() {
   let history = useHistory();
 
-  const { setPassword, setUserEmail, setUserAuth, Login, user, getAllDoctors } =
-    useUser();
+  const { setUserAuth } = useUser();
   const [userLogin, setUserLogin] = useState(initialLoginState);
 
   const handleRegister = () => {
@@ -55,13 +54,8 @@ export default function SignInSide() {
     setUserLogin((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleUserPass = (event) => {
-    setPassword(event.target.value);
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
 
     let validLogin = await login(userLogin);
     console.log(validLogin);
@@ -70,7 +64,6 @@ export default function SignInSide() {
     }
     history.push('/');
   };
-  // console.log(userLogin);
 
   return (
     <ThemeProvider theme={theme}>
