@@ -47,15 +47,14 @@ export const getAllDoctors = () => {
     .catch((err) => console.log(err));
 };
 
-export const login = (user) => {
-  console.log('user', user);
+export const login = (login) => {
   return fetch(`${process.env.REACT_APP_HOST}/login`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
     },
     body: JSON.stringify({
-      ...user,
+      ...login,
     }),
   })
     .then((res) => {
@@ -65,7 +64,6 @@ export const login = (user) => {
       console.log('error: ', err);
       return false;
     });
-  // console.log('i am here?');
 };
 
 export const Logout = () => {

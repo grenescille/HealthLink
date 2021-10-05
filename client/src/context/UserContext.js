@@ -37,7 +37,7 @@ export const UserContextProvider = ({ children }) => {
   const [appointmentId, setAppointmentId] = useState('');
   const [remoteAppointment, setRemoteAppointment] = useState(true);
   const [dateAndTime, setDateAndTime] = useState('');
-  const [location, setLocation] = useState({});
+  // const [location, setLocation] = useState({});
   const [priceMeeting, setPriceMeeting] = useState(0);
   const [roomId, setRoomId] = useState('');
 
