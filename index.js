@@ -17,7 +17,8 @@ require('dotenv').config();
 
 const corsConfig = {
   // REMOVE-START
-  origin: 'http://localhost:3000',
+  origin: '*',
+  // 'http://localhost:3000',
   credentials: true,
   // REMOVE-END
 };

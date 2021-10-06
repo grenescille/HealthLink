@@ -83,6 +83,7 @@ exports.logout = (req, res) => {
         .status(500)
         .send({ error, message: 'Could not log out, please try again' });
     } else {
+      console.log('destroy session');
       res.clearCookie('sid');
       res.sendStatus(200);
     }

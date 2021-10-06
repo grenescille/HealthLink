@@ -15,7 +15,7 @@ export default function ButtonAppBar() {
   const history = useHistory();
   const handleLogout = () => {
     Logout();
-    setUserAuth(false);
+    // setUserAuth(false);
     history.push('/login');
     // return <Redirect to="/login" />;
   };

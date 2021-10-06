@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { login } from '../APIcalls/ApiService';
 
@@ -46,6 +46,9 @@ export default function SignInSide() {
   const [userLogin, setUserLogin] = useState(initialLoginState);
 
   const handleRegister = () => {
+    // console.log('handleChangeReg');
+    // return <Redirect to="/register" />;
+
     history.push('/register');
   };
 
@@ -58,7 +61,7 @@ export default function SignInSide() {
     event.preventDefault();
 
     let validLogin = await login(userLogin);
-    console.log(validLogin);
+    // console.log(validLogin);
     if (validLogin) {
       setUserAuth(true);
     }
@@ -140,7 +143,11 @@ export default function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item>
-                  <Link variant="body2" onClick={handleRegister}>
+                  <Link
+                    data-testid="registerLink"
+                    variant="body2"
+                    onClick={handleRegister}
+                  >
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

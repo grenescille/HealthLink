@@ -17,7 +17,7 @@ import { useUser } from '../context/UserContext';
 import { MenuItem } from '@mui/material';
 import MarkerMap from './MarkerMap';
 import { useHistory } from 'react-router-dom';
-
+import { Redirect } from 'react-router';
 import { specialtyList } from '../data/specialtyList';
 import { patientInitial, doctorInitial } from '../data/initialValue';
 
@@ -129,7 +129,11 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+        data-testid="register-container"
+      >
         <CssBaseline />
         <Box
           sx={{
