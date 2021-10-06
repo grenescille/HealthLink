@@ -17,14 +17,7 @@ test('redirected to register', async () => {
     <UserContextProvider>
       <Router history={history}>
         <App />
-        {/* <Switch>
-          <Route exact path="/login">
-            <EntrySignIn />
-          </Route>
-          <Route exact path="/register">
-            <SignUp />
-          </Route>
-        </Switch> */}
+      
       </Router>
     </UserContextProvider>
   );

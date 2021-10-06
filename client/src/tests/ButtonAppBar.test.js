@@ -1,15 +1,16 @@
+import { renderHook, act } from '@testing-library/react';
+import * as React from 'react';
 import ButtonAppBar from '../components/ButtonAppBar';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { UserContextProvider, useUser } from '../context/UserContext';
 import { createMemoryHistory } from 'history';
 import { Redirect, Router, History, location } from 'react-router-dom';
-import { renderHook, act } from '@testing-library/react';
 import { renderWithRouter } from './hepler';
 
 import '@testing-library/jest-dom';
 
-describe('ButtonAppBar component', () => {
+describe.only('ButtonAppBar component', () => {
   test('should match the snapshot', () => {
     const { container } = render(
       <UserContextProvider>
@@ -31,9 +32,11 @@ describe('ButtonAppBar component', () => {
   });
   test('should logout correctly', async () => {
     const history = createMemoryHistory();
+    // const {result} = renderHook(() => useUser())
+    // console.log(renderHook())
     // console.log(userAuth);
     renderWithRouter(
-      <UserContextProvider>
+      <UserContextProvider >
         <Router history={history}>
           <ButtonAppBar />
         </Router>
