@@ -4,7 +4,9 @@ import DateFnsUtils from '@date-io/date-fns'; // choose your lib
 
 function BasicDateTimePicker({ setSelectedDate, selectedDate }) {
   const handleDateChange = (date) => {
-    // console.log(date);
+    
+
+    console.log('date',date);
     setSelectedDate(date);
   };
 
@@ -16,7 +18,7 @@ function BasicDateTimePicker({ setSelectedDate, selectedDate }) {
         inputVariant="outlined"
         minDate={Date.now()}
         value={selectedDate}
-        onChange={(e) => handleDateChange(e.target.value)}
+        onChange={(e)=>handleDateChange(e.target.value)}
         format="yyyy-MM-dd HH:mm:ss"
       />
     </MuiPickersUtilsProvider>
