@@ -58,7 +58,11 @@ export const login = (login) => {
     }),
   })
     .then((res) => {
+      // console.log('Form the API:', res.json());
       return res.json();
+    })
+    .then((data) => {
+      return data;
     })
     .catch((err) => {
       console.log('error: ', err);
@@ -75,6 +79,18 @@ export const Logout = () => {
   })
     .then((res) => res.json())
     .then((data) => console.log(data));
+};
+
+export const getAppointments = async (user, id) => {
+  console.log('API_Service:', user, id);
+  fetch(`${process.env.REACT_APP_HOST}/${user}/${id}/appointments`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
 };
 
 // export const createAppointment = (appointmentDateAndTime, uId) => {

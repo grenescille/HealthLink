@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Button, Container, Paper } from '@material-ui/core';
 import { CallContextProvider } from '../context/CallContext';
 import VideoChat from './VideoChat';
@@ -14,7 +14,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Typography, AppBar } from '@mui/material';
 import OutlinedCard from './Card';
 import Grid from '@mui/material/Grid';
-
+import { getAppointments } from '../APIcalls/ApiService';
 const useStyles = makeStyles((theme) => ({
   container: {
     width: '600px',
@@ -31,10 +31,24 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
   },
 }));
-
+/* eslint-disable */
 const AppointmentsVisualizer = ({ authorization }) => {
+  const { user } = useUser();
+  const [fetchedAppointments, setFetchedAppointments] = useState([]);
+  console.log(user);
+  useEffect(() => {
+    if (user.isDoctor) {
+      getAppointments('doctor', user.id).then((data) => {
+        setFetchedAppointments(data);
+      });
+    } else {
+      getAppointments('patient', user.id).then((data) => {
+        setFetchedAppointments(data);
+      });
+    }
+  }, []);
+  console.log('fetchedAppointments ', fetchedAppointments);
   if (!authorization) {
-    // console.log('not authorized!');
     return <Redirect to="login" />;
   }
 
@@ -52,7 +66,7 @@ const AppointmentsVisualizer = ({ authorization }) => {
           }}
         >
           <Grid item xs={12}>
-            <MarkerMap />
+            {/* <MarkerMap /> */}
           </Grid>
         </Box>
       </Container>

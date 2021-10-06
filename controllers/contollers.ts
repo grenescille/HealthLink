@@ -1,35 +1,35 @@
+/* eslint-disable */
+
 import express from 'express';
 import { Socket } from 'socket.io';
 const db = require('./../models/model');
 const bcrypt = require('bcrypt');
 //get all doctors
 
-interface IGeoJsonDoctor{
-  type: string,
-  features: any[] 
+interface IGeoJsonDoctor {
+  type: string;
+  features: any[];
 }
 
-interface IGeometry{
-geometry: [string, string]
+interface IGeometry {
+  geometry: [string, string];
 }
 
-interface IDoctor  {
-
-  id: number,
-  name: string,
-  email: string,
-  age: number,
-  specialty: string,
-  onsiteavailability: boolean,
-  priceremote: number,
-  priceonsite: number,
-  peerid: string | null,
-  radius: number,
-  workyears: number,
-  isdoctor: boolean,
-  feature: IGeometry[]
-} 
-
+interface IDoctor {
+  id: number;
+  name: string;
+  email: string;
+  age: number;
+  specialty: string;
+  onsiteavailability: boolean;
+  priceremote: number;
+  priceonsite: number;
+  peerid: string | null;
+  radius: number;
+  workyears: number;
+  isdoctor: boolean;
+  feature: IGeometry[];
+}
 
 exports.getAllDoctors = async (req: express.Request, res: express.Response) => {
   try {
@@ -37,10 +37,10 @@ exports.getAllDoctors = async (req: express.Request, res: express.Response) => {
     const allDoctors = await db.Doctors.findAll();
 
     //i need all doctors in a GeoJson Format
-    let geoJsonDoctors : IGeoJsonDoctor = {
-      type:'JsonGeolocation',
-      features:[]
-    }
+    let geoJsonDoctors: IGeoJsonDoctor = {
+      type: 'JsonGeolocation',
+      features: [],
+    };
     for (let doctor of allDoctors) {
       let feature = { type: 'Feature', properties: {}, geometry: {} };
       feature.properties = {
@@ -71,7 +71,7 @@ exports.login = async (req: express.Request, res: express.Response) => {
   try {
     // console.log('here!!');
     const { email, password } = req.body;
-    console.log('email: ', email, ' || pass: ', password);
+    // console.log('email: ', email, ' || pass: ', password);
     const userPatient = await db.Patients.findOne({ where: { email: email } });
     // console.log(userPatient);
     const userDoctor = await db.Doctors.findOne({ where: { email: email } });
@@ -85,7 +85,7 @@ exports.login = async (req: express.Request, res: express.Response) => {
         // console.log('shit, bad pass');
         throw new Error();
       }
-      req.session.uid  = userPatient._id;
+      req.session.uid = userPatient._id;
       res.status(200).send(userPatient);
     } else if (userDoctor) {
       const passValidation = await bcrypt.compare(
@@ -102,7 +102,7 @@ exports.login = async (req: express.Request, res: express.Response) => {
       res.status(409).send({ message: 'User does not exists!' });
     }
   } catch (err) {
-    res.status(500).send(null);
+    res.status(500).send(err);
   }
 };
 
@@ -241,12 +241,15 @@ exports.addDoctor = async (req: express.Request, res: express.Response) => {
       res.status(200).send(doctor);
     }
   } catch (err) {
-    console.log('error!');
+    console.log('error!', err);
     res.status(500).send(err);
   }
 };
 // create a appointment
-exports.addAppointment = async (req: express.Request, res: express.Response) => {
+exports.addAppointment = async (
+  req: express.Request,
+  res: express.Response
+) => {
   try {
     console.log('here in addappointment', req.body);
     const {
@@ -270,7 +273,6 @@ exports.addAppointment = async (req: express.Request, res: express.Response) => 
       price: price,
       DoctorId: DoctorId,
       PatientId: PatientId,
-      
     });
     // const appointement = await db.Appointments.create({remoteappointment: remoteappointment,onsiteappointment: onsiteappointment,date: date,roomid: roomid,price: price, DoctorId: doctorId, PatientId: patientId});
 
@@ -281,12 +283,15 @@ exports.addAppointment = async (req: express.Request, res: express.Response) => 
   }
 };
 
-exports.getDoctorAppointments = async (req: express.Request, res: express.Response) => {
+exports.getDoctorAppointments = async (
+  req: express.Request,
+  res: express.Response
+) => {
   try {
-    // console.log('welcome to getDoctor: ', req.params.id);
+    console.log('welcome to getDoctor: ', req.params.id);
     //attributes = SELECT
     const doctorAppointments = await db.Appointments.findAll({
-      attributes: ['date', 'roomid'],
+      attributes: ['date', 'roomid', 'DoctorId', 'PatientId'],
       include: [
         {
           model: db.Doctors,
@@ -303,26 +308,32 @@ exports.getDoctorAppointments = async (req: express.Request, res: express.Respon
   }
 };
 
-exports.getPatientAppointments = async (req: express.Request, res: express.Response) => {
+exports.getPatientAppointments = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  console.log('PARAM_____ID', req.params.id);
   try {
     // console.log('welcome to getDoctor: ', req.params.id);
     //attributes = SELECT
     const doctorAppointments = await db.Appointments.findAll({
       attributes: [
         'date',
+        'PatientId',
         'DoctorId',
         'price',
         'onsiteappointment',
         'remoteappointment',
       ],
-      include: [
-        {
-          model: db.Patients,
-          required: true,
-        },
-      ],
+      // include: [
+      //   {
+      //     model: db.Doctors,
+      //     required: true,
+      //   },
+      // ],
       where: { PatientId: req.params.id },
     });
+    console.log('APPOINMENTS', doctorAppointments);
 
     res.status(200).send(doctorAppointments);
   } catch (err) {
@@ -334,7 +345,7 @@ exports.getPatientAppointments = async (req: express.Request, res: express.Respo
 // start call - signalling events
 // my signalling server event listeners
 exports.callHandshake = (req: express.Request, res: express.Request) => {
-  const io = require('socket.io')(req.server , {
+  const io = require('socket.io')(req.server, {
     cors: {
       origin: '*', //we might need to change, when front end is deployed in netlify
       methods: ['GET', 'POST'],

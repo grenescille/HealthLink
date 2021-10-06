@@ -44,6 +44,7 @@ export default function SignInSide() {
 
   const { setUserAuth } = useUser();
   const [userLogin, setUserLogin] = useState(initialLoginState);
+  const { user, setUser } = useUser();
 
   const handleRegister = () => {
     // console.log('handleChangeReg');
@@ -61,11 +62,13 @@ export default function SignInSide() {
     event.preventDefault();
 
     let validLogin = await login(userLogin);
-    // console.log(validLogin);
+
     if (validLogin) {
+      console.log('validLogin within EntrySignIn ', validLogin);
+      setUser({ ...validLogin });
       setUserAuth(true);
+      history.push('/');
     }
-    history.push('/');
   };
 
   return (
