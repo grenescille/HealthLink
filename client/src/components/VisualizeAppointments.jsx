@@ -40,7 +40,7 @@ const AppointmentsVisualizer = ({ authorization }) => {
   const [fetchedAppointments, setFetchedAppointments] = useState({
     Doctors: [],
   });
-  const [sortedAppointments, setSortedAppointments] = useState();
+  const [sortedAppointments, setSortedAppointments] = useState([]);
 
   // console.log('user within AppointsVisual ', user);
   useEffect(() => {
@@ -91,7 +91,7 @@ const AppointmentsVisualizer = ({ authorization }) => {
     return <Redirect to="login" />;
   }
 
-  const rows: GridRowsProp = sortedAppointments;
+  const rows: GridRowsProp[] = sortedAppointments;
 
   const columns: GridColDef[] = [
     { field: 'col1', headerName: "Dr's Name", width: 220 },
