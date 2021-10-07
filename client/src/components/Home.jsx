@@ -46,7 +46,9 @@ const Home = ({ authorization }) => {
     return <Redirect to="login" />;
   }
 
-  const visualizeUserAppointments = () => {};
+  const visualizeUserAppointments = () => {
+    history.push('/check');
+  };
 
   const createNewAppointement = () => {
     // console.log('button clicked.. going to fetch all docs');
@@ -68,7 +70,9 @@ const Home = ({ authorization }) => {
             alignItems: 'center',
           }}
         >
-          <Button variant="contained">Visualize my Appointments</Button>
+          <Button variant="contained" onClick={visualizeUserAppointments}>
+            Visualize my Appointments
+          </Button>
           {isDoctor ? null : (
             <Button variant="contained" onClick={createNewAppointement}>
               Create a new Appointment
@@ -83,7 +87,7 @@ const Home = ({ authorization }) => {
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}
-                > 
+                >
                   <AddCircleOutlineIcon color="primary"/>
                   <Typography color="primary" className={classes.mycard}>
                     Create a new Appointement
@@ -98,7 +102,7 @@ const Home = ({ authorization }) => {
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}
-                > 
+                >
                   <AddCircleOutlineIcon color="primary"/>
                   <Typography color="primary" className={classes.mycard}>
                     Create a new Appointement

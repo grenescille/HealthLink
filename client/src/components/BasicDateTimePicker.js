@@ -1,12 +1,10 @@
 import React from 'react';
 import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
-
+import { useUser } from '../context/UserContext';
 function BasicDateTimePicker({ setSelectedDate, selectedDate }) {
   const handleDateChange = (date) => {
-    
-
-    console.log('date',date);
+    console.log('date', date);
     setSelectedDate(date);
   };
 
@@ -19,7 +17,7 @@ function BasicDateTimePicker({ setSelectedDate, selectedDate }) {
         minDate={Date.now()}
         value={selectedDate}
         onChange={(e)=>handleDateChange(e)}
-        // onSubmit={(e)=>handleDateChange(e.target.value)}
+    
         format="yyyy-MM-dd HH:mm:ss"
       />
     </MuiPickersUtilsProvider>

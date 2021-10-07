@@ -1,4 +1,6 @@
-import {Server, Socket } from 'socket.io';
+/* eslint-disable */
+
+import { Server, Socket } from 'socket.io';
 import express from 'express';
 
 const app = express(); // express object created
@@ -23,29 +25,28 @@ declare module 'express-session' {
     uid: { [key: string]: any };
   }
 }
-declare module 'express'{
-  export interface Request{
-    server: Server
-  }
-} 
-declare var process : {
-  env: {
-    NODE_ENV: string,
-    devPORT: string,
-    SESS_SECRET: string,
-    DB_PORT: string,
+declare module 'express' {
+  export interface Request {
+    server: Server;
   }
 }
+declare var process: {
+  env: {
+    NODE_ENV: string;
+    devPORT: string;
+    SESS_SECRET: string;
+    DB_PORT: string;
+  };
+};
 const corsConfig = {
   // REMOVE-START
-  origin: 
-  'http://localhost:3001',
+  origin: 'http://localhost:3000',
   credentials: true,
   // REMOVE-END
 };
 
 const { devPORT } = process.env || 5000;
-const {SESS_SECRET }= process.env ;
+const { SESS_SECRET } = process.env;
 // console.log(SESS_SECRET);
 
 app.use(cors(corsConfig));
@@ -64,7 +65,7 @@ app
         httpOnly: false,
         secure: false,
       },
-    }),
+    })
   )
   .use(router);
 
@@ -79,9 +80,7 @@ async function bootstrap() {
       socket.broadcast.emit('callended');
     });
 
-    socket.on('call', ({
-      destinationUser, signallingData, from, name,
-    }) => {
+    socket.on('call', ({ destinationUser, signallingData, from, name }) => {
       io.to(destinationUser).emit('call', {
         signal: signallingData,
         senderUser: from,
