@@ -88,6 +88,7 @@ export const getAppointments = async (user, id) => {
       return res.json();
     })
     .then((data) => {
+      console.log('returned data inside API call ', data);
       return data;
     })
     .catch((err) => console.log(err));

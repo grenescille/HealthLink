@@ -35,14 +35,16 @@ const useStyles = makeStyles((theme) => ({
 const AppointmentsVisualizer = ({ authorization }) => {
   const { user } = useUser();
   const [fetchedAppointments, setFetchedAppointments] = useState([]);
-  console.log(user);
+  // console.log('user within AppointsVisual ', user);
   useEffect(() => {
     if (user.isDoctor) {
       getAppointments('doctor', user.id).then((data) => {
+        console.log('Dr data within AppointmentsVisualizer ', data);
         setFetchedAppointments(data);
       });
     } else {
       getAppointments('patient', user.id).then((data) => {
+        console.log('Patient data within AppointmentsVisualizer ', data);
         setFetchedAppointments(data);
       });
     }
