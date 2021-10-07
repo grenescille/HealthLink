@@ -18,7 +18,8 @@ function BasicDateTimePicker({ setSelectedDate, selectedDate }) {
         inputVariant="outlined"
         minDate={Date.now()}
         value={selectedDate}
-        onChange={(e)=>handleDateChange(e.target.value)}
+        onChange={(e)=>handleDateChange(e)}
+        // onSubmit={(e)=>handleDateChange(e.target.value)}
         format="yyyy-MM-dd HH:mm:ss"
       />
     </MuiPickersUtilsProvider>
