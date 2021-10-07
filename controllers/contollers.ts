@@ -336,9 +336,6 @@ exports.getPatientAppointments = async (
         },
       ],
     });
-    console.log('Patient', doctorAppointments);
-
-    console.log('Doctors', ...doctorAppointments.Doctors);
 
     res.status(200).send(doctorAppointments);
   } catch (err) {

@@ -17,17 +17,6 @@ import Grid from '@mui/material/Grid';
 import { getAppointments } from '../APIcalls/ApiService';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 
-const rows: GridRowsProp = [
-  { id: 1, col1: 'Hello', col2: 'World' },
-  { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-  { id: 3, col1: 'Material-UI', col2: 'is Amazing' },
-];
-
-const columns: GridColDef[] = [
-  { field: 'col1', headerName: 'Column 1', width: 150 },
-  { field: 'col2', headerName: 'Column 2', width: 150 },
-];
-
 const useStyles = makeStyles((theme) => ({
   container: {
     width: '600px',
@@ -46,8 +35,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 /* eslint-disable */
 const AppointmentsVisualizer = ({ authorization }) => {
+  console.log('appointmentsVisualizer: render ');
   const { user } = useUser();
-  const [fetchedAppointments, setFetchedAppointments] = useState([]);
+  const [fetchedAppointments, setFetchedAppointments] = useState({
+    Doctors: [],
+  });
+  const [sortedAppointments, setSortedAppointments] = useState();
+
   // console.log('user within AppointsVisual ', user);
   useEffect(() => {
     if (user.isDoctor) {
@@ -56,21 +50,65 @@ const AppointmentsVisualizer = ({ authorization }) => {
         setFetchedAppointments(data);
       });
     } else {
-      getAppointments('patient', user.id).then((data) => {
-        console.log('Patient data ', data);
-        setFetchedAppointments(data.data);
-      });
+      getAppointments('patient', user.id)
+        .then((data) => {
+          console.log('Patient data ', data);
+          setFetchedAppointments(data.data);
+          return data.data.Doctors;
+        })
+        .then((doc) => {
+          console.log('doc ', doc);
+          let counter = 0;
+          const sortAppointments = [];
+          doc.map((doctor) => {
+            console.log('doctor in map ', doctor);
+            counter++;
+            const location = (doctor) => {
+              if (doctor.Appointments.onsiteappointment) {
+                return 'On Site';
+              } else {
+                ('Remote');
+              }
+            };
+
+            sortAppointments.push({
+              id: counter,
+              col1: doctor.name,
+              col2: doctor.Appointments.date,
+              col3: location(doctor),
+              col4: doctor.Appointments.price,
+            });
+            console.log('in map sortAppoint:  ', sortAppointments);
+          });
+          setSortedAppointments(sortAppointments);
+        });
     }
   }, []);
+
+  console.log('sortedAppointments ', sortedAppointments);
+
   if (!authorization) {
     return <Redirect to="login" />;
   }
+
+  const rows: GridRowsProp = sortedAppointments;
+
+  const columns: GridColDef[] = [
+    { field: 'col1', headerName: "Dr's Name", width: 220 },
+    { field: 'col2', headerName: 'Time & Date', width: 220 },
+    { field: 'col3', headerName: 'Location', width: 220 },
+    { field: 'col4', headerName: 'Rate', width: 220 },
+  ];
+
+  console.log('fetchedAppointments ', fetchedAppointments);
+
+  console.log('sortedAppointments ', sortedAppointments);
 
   return (
     <div>
       <ButtonAppBar />
 
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="md">
         <Box
           sx={{
             marginTop: 8,
