@@ -316,24 +316,29 @@ exports.getPatientAppointments = async (
   try {
     // console.log('welcome to getDoctor: ', req.params.id);
     //attributes = SELECT
-    const doctorAppointments = await db.Appointments.findAll({
-      attributes: [
-        'date',
-        'PatientId',
-        'DoctorId',
-        'price',
-        'onsiteappointment',
-        'remoteappointment',
+    const doctorAppointments = await db.Patients.findOne({
+      where: { id: req.params.id },
+      attributes: ['name'],
+      include: [
+        {
+          model: db.Doctors,
+          required: true,
+          attributes: ['name', 'specialty'],
+          through: {
+            model: db.Appointments,
+            attributes: [
+              'date',
+              'price',
+              'onsiteappointment',
+              'remoteappointment',
+            ],
+          },
+        },
       ],
-      // include: [
-      //   {
-      //     model: db.Doctors,
-      //     required: true,
-      //   },
-      // ],
-      where: { PatientId: req.params.id },
     });
-    console.log('APPOINMENTS', doctorAppointments);
+    console.log('Patient', doctorAppointments);
+
+    console.log('Doctors', ...doctorAppointments.Doctors);
 
     res.status(200).send(doctorAppointments);
   } catch (err) {

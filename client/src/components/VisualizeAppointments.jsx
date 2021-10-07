@@ -15,6 +15,19 @@ import { Typography, AppBar } from '@mui/material';
 import OutlinedCard from './Card';
 import Grid from '@mui/material/Grid';
 import { getAppointments } from '../APIcalls/ApiService';
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+
+const rows: GridRowsProp = [
+  { id: 1, col1: 'Hello', col2: 'World' },
+  { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
+  { id: 3, col1: 'Material-UI', col2: 'is Amazing' },
+];
+
+const columns: GridColDef[] = [
+  { field: 'col1', headerName: 'Column 1', width: 150 },
+  { field: 'col2', headerName: 'Column 2', width: 150 },
+];
+
 const useStyles = makeStyles((theme) => ({
   container: {
     width: '600px',
@@ -44,12 +57,11 @@ const AppointmentsVisualizer = ({ authorization }) => {
       });
     } else {
       getAppointments('patient', user.id).then((data) => {
-        console.log('Patient data within AppointmentsVisualizer ', data);
-        setFetchedAppointments(data);
+        console.log('Patient data ', data);
+        setFetchedAppointments(data.data);
       });
     }
   }, []);
-  console.log('fetchedAppointments ', fetchedAppointments);
   if (!authorization) {
     return <Redirect to="login" />;
   }
@@ -67,9 +79,9 @@ const AppointmentsVisualizer = ({ authorization }) => {
             alignItems: 'center',
           }}
         >
-          <Grid item xs={12}>
-            {/* <MarkerMap /> */}
-          </Grid>
+          <div style={{ height: 300, width: '100%' }}>
+            <DataGrid rows={rows} columns={columns} />
+          </div>
         </Box>
       </Container>
     </div>

@@ -39,7 +39,7 @@ export const createPatient = (patient) => {
 };
 
 export const getAllDoctors = () => {
-  fetch(`${process.env.REACT_APP_HOST}/doctors`)
+  return fetch(`${process.env.REACT_APP_HOST}/doctors`)
     .then((res) => {
       console.log('my headers', res.headers);
       return res.json();
@@ -71,7 +71,7 @@ export const login = (login) => {
 };
 
 export const Logout = () => {
-  fetch(`${process.env.REACT_APP_HOST}/logout`, {
+  return fetch(`${process.env.REACT_APP_HOST}/logout`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -83,39 +83,13 @@ export const Logout = () => {
 
 export const getAppointments = async (user, id) => {
   console.log('API_Service:', user, id);
-  fetch(`${process.env.REACT_APP_HOST}/${user}/${id}/appointments`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log('returned data inside API call ', data);
-      return data;
-    })
-    .catch((err) => console.log(err));
+  try {
+    const responsObj = await fetch(
+      `${process.env.REACT_APP_HOST}/${user}/${id}/appointments`
+    );
+    const dataAppt = await responsObj.json();
+    return { error: null, data: dataAppt };
+  } catch (error) {
+    return { data: null, error: 'network error' };
+  }
 };
-
-// export const createAppointment = (appointmentDateAndTime, uId) => {
-//   // console.log('lets fetch appointments console UID:', user);
-//   fetch(`${process.env.REACT_APP_HOST}/appointment`, {
-//     method: 'POST',
-//     credentials: 'include',
-//     mode: 'cors',
-//     headers: {
-//       'content-type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//       PatientId: user.id,
-//       DoctorId: selectedDoctor.id,
-//       remoteappointment: remoteAppointment,
-//       onsiteappointment: !remoteAppointment,
-//       date: appointmentDateAndTime,
-//       location: geolocation,
-//       price: remoteAppointment
-//         ? selectedDoctor.priceremote
-//         : selectedDoctor.priceonsite,
-//       priceonsite: selectedDoctor.priceonsite,
-//     }),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => setUser(data));
-// };
