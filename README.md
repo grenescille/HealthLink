@@ -4,7 +4,7 @@ An app to help patients in Portugal make appointments directly with a specialist
 
 **Tech Stack**
 
-React, Node, MUI, Express, Postresql, SequelizeORM
+React, Node, Typescript,MUI, Express, Postresql, SequelizeORM, React Testing Library
 
 **Getting Started**
 
