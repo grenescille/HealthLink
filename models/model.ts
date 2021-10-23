@@ -1,21 +1,23 @@
+/* eslint-disable */
 const fs = require('fs');
-const { DB_PORT, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
-const Sequelize = require('sequelize');
+// const {DB_PORT, DB_NAME, DB_USER, DB_PASSWORD} = process.env;
+// const Sequelize = require('sequelize');
+
 const { Model } = require('sequelize');
 const path = require('path'); //builtin in node. help us to get the specific path to this file
-
+const Sequelize = require('sequelize');
 const config = {
   host: 'localhost',
   dialect: 'postgres',
 };
 
-const sequelize = new Sequelize('healthdb', 'davidgreen', '', config); //creating a sequelize instance
-const db = {}; //empty object initialization
+const sequelize: any = new Sequelize('healthdb', 'davidgreen', '123', config); //creating a sequelize instance
+const db: any = {}; //empty object initialization
 const files = fs.readdirSync(__dirname); //asking node to give us a list of the files in the current folder ('models' in this case and will be an array of strings)
 
 //we going to grab each file from the list of files @models folder
 for (const file of files) {
-  if (file !== 'model.js') {
+  if (file !== 'model.ts') {
     //require(path.join(__dirname,file)) we are importing an individual model file (app)
     //require(path.join(__dirname,file))(Sequelize,Sequelize.DataType) the models are expecting 2 arguments: sequelize instance and the available DataTypes. (Bottomline: we are executing each model function file)
     const model = require(path.join(__dirname, file))(
@@ -29,9 +31,7 @@ for (const file of files) {
 
 //this loop is done after for(const file of files) because we want to be sure all models exist in the db object
 for (const model in db) {
-  if (db[model].associate) {
-    db[model].associate(db); //we run through all the models and execute any associations presents in the model definition
-  }
+  if (db[model].associate) db[model].associate(db); //we run through all the models and execute any associations presents in the model definition
 }
 
 db.sequelize = sequelize;

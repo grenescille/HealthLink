@@ -40,20 +40,33 @@ export const CallContextProvider = ({ children }) => {
         myVideo.current.srcObject = incomingStream;
       });
 
+<<<<<<< HEAD
     console.log('it starts!');
+=======
+    // console.log('it starts!');
+>>>>>>> backend
 
     //saves my socket.id (created by the signalling server). listening since beginning
 
     socket.on('ownuser', (id) => {
+<<<<<<< HEAD
       console.log('got it!');
+=======
+      // console.log('got it!');
+>>>>>>> backend
       setMe(id);
     });
 
     //this particular event is received by the user that is receiving the call (callee) (with the data from the user trying to establish connection forwarded by the signalling server)
     //event 'call' originated from the signalling server
     socket.on('call', ({ senderUser, senderName, signal }) => {
+<<<<<<< HEAD
       console.log('senderId: ', senderUser, ' and senderName: ', senderName);
       console.log('signal: ', signal);
+=======
+      // console.log('senderId: ',senderUser,' and senderName: ',senderName);
+      // console.log('signal: ',signal);
+>>>>>>> backend
       setCall({
         //this event will be sensed by the receiver
         isReceivedCall: true,
@@ -65,7 +78,11 @@ export const CallContextProvider = ({ children }) => {
         signal,
       });
     });
+<<<<<<< HEAD
   });
+=======
+  }, []);
+>>>>>>> backend
 
   //when we want try a call, we need to have the callee id (id)
   const callUser = (id) => {
@@ -94,8 +111,13 @@ export const CallContextProvider = ({ children }) => {
 
     //as a caller, we expect to receive an answer, when positive answer comes, then we will try to establish a connection
     socket.on('callaccepted', (signal) => {
+<<<<<<< HEAD
       console.log('acceptance received');
       console.log('at caller signal: ', signal);
+=======
+      // console.log('acceptance received');
+      // console.log('at caller signal: ',signal);
+>>>>>>> backend
       setCallAccepted(true); //for conditional rendering.. if accepted than we will show callee window
       callerPeer.signal(signal); //final handshaking is done here. Trying p2p connection
     });
@@ -112,6 +134,7 @@ export const CallContextProvider = ({ children }) => {
       stream: stream, //my stream i need to pass to the callee
     });
 
+<<<<<<< HEAD
     console.log('answer call');
     console.log('callerId: ', call.from);
     console.log('signal: ', call.signal);
@@ -120,6 +143,16 @@ export const CallContextProvider = ({ children }) => {
       //here is where the answer starts (signalling process.. only after caller receive the signalling data from callee, will attempt to establish p2p connection)
       console.log('answer. callerId:', call.from);
       console.log('signal data: ', data);
+=======
+    // console.log('answer call');
+    // console.log('callerId: ',call.from);
+    // console.log('signal: ', call.signal);
+
+    calleePeer.on('signal', (data) => {
+      //here is where the answer starts (signalling process.. only after caller receive the signalling data from callee, will attempt to establish p2p connection)
+      // console.log('answer. callerId:',call.from);
+      // console.log('signal data: ',data);
+>>>>>>> backend
       socket.emit('answer', { signaldata: data, callerId: call.from });
     });
 
@@ -136,7 +169,11 @@ export const CallContextProvider = ({ children }) => {
   };
 
   const endCall = () => {
+<<<<<<< HEAD
     console.log('call ended!');
+=======
+    // console.log('call ended!');
+>>>>>>> backend
     setCallEnded(true);
 
     connectionRef.current.destroy();

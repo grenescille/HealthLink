@@ -1,0 +1,31 @@
+export const patientInitial = {
+  id: '',
+  isDoctor: false,
+  name: '',
+  age: 0,
+  email: '',
+  username: '',
+  password: '',
+  stripeid: '',
+  location: {},
+  peerid: '',
+};
+
+export const doctorInitial = {
+  id: '',
+  isDoctor: true,
+  name: '',
+  age: 0,
+  email: '',
+  username: '',
+  password: '',
+  stripeid: '',
+  location: {},
+  peerid: '',
+  workyears: 0,
+  specialty: '',
+  radius: 2,
+  priceremote: 0,
+  onsiteavailability: false,
+  priceonsite: 0,
+};

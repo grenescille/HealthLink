@@ -33,9 +33,19 @@ export const UserContextProvider = ({ children }) => {
   const [onSiteAvailability, setOnSiteAvailability] = useState(false);
 
   //appointment specific data
+<<<<<<< HEAD
 
   const [remoteAppointment, setRemoteAppointment] = useState(true);
   const [dateAndTime, setDateAndTime] = useState('');
+=======
+  const [appointmentDoctor, setAppointmentDoctor] = useState({});
+  const [appointmentId, setAppointmentId] = useState('');
+  const [remoteAppointment, setRemoteAppointment] = useState(true);
+  const [dateAndTime, setDateAndTime] = useState('');
+  // const [location, setLocation] = useState({});
+  const [priceMeeting, setPriceMeeting] = useState(0);
+  const [roomId, setRoomId] = useState('');
+>>>>>>> backend
 
   //choosen doctor for meeting
   const [selectedDoctor, setSelectedDoctor] = useState({
@@ -54,10 +64,17 @@ export const UserContextProvider = ({ children }) => {
   //when we want try a call, we neede to have the callee id (id)
 
   const createUser = () => {
+<<<<<<< HEAD
     console.log('inside user!');
 
     if (isDoctor) {
       console.log('i am a doc!');
+=======
+    // console.log('inside user!');
+
+    if (isDoctor) {
+      // console.log('i am a doc!');
+>>>>>>> backend
       return fetch(`${process.env.REACT_APP_HOST}/doctor`, {
         method: 'POST',
         credentials: 'include',
@@ -98,7 +115,11 @@ export const UserContextProvider = ({ children }) => {
           return false;
         });
     } else {
+<<<<<<< HEAD
       console.log('i am a patient!');
+=======
+      // console.log('i am a patient!');
+>>>>>>> backend
       return fetch(`${process.env.REACT_APP_HOST}/patient`, {
         method: 'POST',
         credentials: 'include',
@@ -119,7 +140,11 @@ export const UserContextProvider = ({ children }) => {
         })
         .then((data) => {
           if (reqStatus.current === 200) {
+<<<<<<< HEAD
             console.log(data);
+=======
+            // console.log(data);
+>>>>>>> backend
             setUser(data);
             return true;
           } else {
@@ -158,11 +183,16 @@ export const UserContextProvider = ({ children }) => {
       }),
     })
       .then((res) => {
+<<<<<<< HEAD
         console.log('response status: ', res.status);
+=======
+        // console.log('response status: ', res.status);
+>>>>>>> backend
         reqStatus.current = res.status;
         return res.json();
       })
       .then((data) => {
+<<<<<<< HEAD
         console.log('mydata VALUE: ', data);
         console.log('my status VALUE:', reqStatus);
         console.log('is doctor?@usercontext:', data.isdoctor);
@@ -173,6 +203,19 @@ export const UserContextProvider = ({ children }) => {
           return true;
         } else {
           console.log('not authorized on usercontext', reqStatus);
+=======
+        // console.log('mydata VALUE: ', data);
+        // console.log('my status VALUE:', reqStatus);
+        // console.log('is doctor?@usercontext:', data.isdoctor);
+        setUser(data);
+        setIsDoctor(data.isdoctor);
+        console.log('userContext-user ', user);
+        if (reqStatus.current === 200) {
+          // console.log('user authorized from usercontext');
+          return true;
+        } else {
+          // console.log('not authorized on usercontext', reqStatus);
+>>>>>>> backend
           return false;
         }
       })
@@ -180,6 +223,10 @@ export const UserContextProvider = ({ children }) => {
         console.log('error: ', err);
         return false;
       });
+<<<<<<< HEAD
+=======
+    // console.log('i am here?');
+>>>>>>> backend
   };
 
   const Logout = () => {
@@ -193,8 +240,14 @@ export const UserContextProvider = ({ children }) => {
       .then((data) => console.log(data));
   };
 
+<<<<<<< HEAD
   const createAppointment = (appointmentDateAndTime) => {
     console.log('lets fetch appointments');
+=======
+  const createAppointment = (appointmentDateAndTime, uId) => {
+    console.log('lets fetch appointments console UID:', user);
+    console.log(uId)
+>>>>>>> backend
     fetch(`${process.env.REACT_APP_HOST}/appointment`, {
       method: 'POST',
       credentials: 'include',
@@ -203,7 +256,11 @@ export const UserContextProvider = ({ children }) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
+<<<<<<< HEAD
         PatientId: userId,
+=======
+        PatientId: user.id,
+>>>>>>> backend
         DoctorId: selectedDoctor.id,
         remoteappointment: remoteAppointment,
         onsiteappointment: !remoteAppointment,

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,8 +12,16 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+<<<<<<< HEAD
 import { useHistory } from 'react-router-dom';
+=======
+
+import { useHistory, Redirect } from 'react-router-dom';
+>>>>>>> backend
 import { useUser } from '../context/UserContext';
+import { login } from '../APIcalls/ApiService';
+
+const initialLoginState = { email: '', password: '' };
 
 function Copyright(props) {
   return (
@@ -38,6 +46,7 @@ const theme = createTheme();
 export default function SignInSide() {
   let history = useHistory();
 
+<<<<<<< HEAD
   const { setPassword, setUserEmail, setUserAuth, Login, user, getAllDoctors } =
     useUser();
 
@@ -51,16 +60,45 @@ export default function SignInSide() {
 
   const handleUserPass = (event) => {
     setPassword(event.target.value);
+=======
+  const { setUserAuth } = useUser();
+  const [userLogin, setUserLogin] = useState(initialLoginState);
+  const { user, setUser } = useUser();
+
+  const handleRegister = () => {
+    // console.log('handleChangeReg');
+    // return <Redirect to="/register" />;
+
+    history.push('/register');
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserLogin((prevState) => ({ ...prevState, [name]: value }));
+>>>>>>> backend
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+<<<<<<< HEAD
     const data = new FormData(event.currentTarget);
     let validLogin = await Login();
     if (validLogin) {
+=======
+
+    let validLogin = await login(userLogin);
+
+    if (validLogin) {
+      console.log('validLogin within EntrySignIn ', validLogin);
+      setUser({ ...validLogin });
+>>>>>>> backend
       setUserAuth(true);
+      history.push('/');
     }
+<<<<<<< HEAD
     history.push('/');
+=======
+>>>>>>> backend
   };
 
   return (
@@ -103,7 +141,7 @@ export default function SignInSide() {
               sx={{ mt: 1 }}
             >
               <TextField
-                onChange={handleUserEmail}
+                onChange={handleChange}
                 margin="normal"
                 required
                 fullWidth
@@ -114,7 +152,7 @@ export default function SignInSide() {
                 autoFocus
               />
               <TextField
-                onChange={handleUserPass}
+                onChange={handleChange}
                 margin="normal"
                 required
                 fullWidth
@@ -138,7 +176,11 @@ export default function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item>
-                  <Link variant="body2" onClick={handleRegister}>
+                  <Link
+                    data-testid="registerLink"
+                    variant="body2"
+                    onClick={handleRegister}
+                  >
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

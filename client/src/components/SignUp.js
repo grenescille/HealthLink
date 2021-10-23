@@ -17,6 +17,12 @@ import { useUser } from '../context/UserContext';
 import { MenuItem } from '@mui/material';
 import MarkerMap from './MarkerMap';
 import { useHistory } from 'react-router-dom';
+<<<<<<< HEAD
+=======
+import { Redirect } from 'react-router';
+import { specialtyList } from '../data/specialtyList';
+import { patientInitial, doctorInitial } from '../data/initialValue';
+>>>>>>> backend
 
 function Copyright(props) {
   // MOVE THIS BELOW SIGNUP FUNCTION?
@@ -42,6 +48,7 @@ const theme = createTheme();
 export default function SignUp() {
   let history = useHistory();
 
+<<<<<<< HEAD
   const specialtyList = [
     { value: 'Allergy/Immunologist' },
     { value: 'Cardiologist' },
@@ -62,6 +69,8 @@ export default function SignUp() {
     { value: 'Rheumatologist' },
     { value: 'Urologist' },
   ];
+=======
+>>>>>>> backend
   const {
     isDoctor,
     setIsDoctor,
@@ -73,6 +82,11 @@ export default function SignUp() {
     setPassword,
     specialty,
     setSpecialty,
+<<<<<<< HEAD
+=======
+    geolocation,
+    setGeolocation,
+>>>>>>> backend
     userAge,
     setUserAge,
     priceRemote,
@@ -86,13 +100,22 @@ export default function SignUp() {
     createUser,
     setUserAuth,
   } = useUser();
+<<<<<<< HEAD
 
   // IS THERE A WAY TO REDUCE THE NUMBER OF HANDLER FUNCTIONS HERE?
+=======
+>>>>>>> backend
 
   const handleClick = () => {
     setIsDoctor(!isDoctor);
   };
+<<<<<<< HEAD
 
+=======
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+  };
+>>>>>>> backend
   const handleOnSiteAvailabilityClick = () => {
     setOnSiteAvailability(!onSiteAvailability);
   };
@@ -135,7 +158,11 @@ export default function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+<<<<<<< HEAD
 
+=======
+    // const data = new FormData(event.currentTarget);
+>>>>>>> backend
     let validUserCreation = await createUser();
     if (validUserCreation) {
       setUserAuth(true);
@@ -145,7 +172,11 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+        data-testid="register-container"
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -161,7 +192,11 @@ export default function SignUp() {
           </Avatar>
           <FormGroup>
             <FormControlLabel
+<<<<<<< HEAD
               control={<Checkbox checked={!isDoctor} onChange={handleClick} />} //RENAME HANDLECLICK TO HANDLEISDOCTORCLICK
+=======
+              control={<Checkbox checked={!isDoctor} onChange={handleClick} />}
+>>>>>>> backend
               label="I'm a Patient"
             />
             <FormControlLabel
@@ -244,6 +279,7 @@ export default function SignUp() {
                       helperText="Please select you Specialty"
                       onChange={handleMedicalSpecialty}
                     >
+<<<<<<< HEAD
                       {specialtyList.map(
                         (spec) => (
                           (spec.label = spec.value),
@@ -254,6 +290,13 @@ export default function SignUp() {
                           )
                         )
                       )}
+=======
+                      {specialtyList.map((spec) => (
+                        <MenuItem key={spec.value} value={spec.value}>
+                          {spec.label}
+                        </MenuItem>
+                      ))}
+>>>>>>> backend
                     </TextField>
                   </Grid>
                   <Grid item xs={12}>
@@ -347,7 +390,11 @@ export default function SignUp() {
                 component="form"
                 noValidate
                 onSubmit={handleSubmit}
+<<<<<<< HEAD
                 sx={{ mt: 3 }} //WHAT IS THIS?
+=======
+                sx={{ mt: 3 }}
+>>>>>>> backend
               >
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>

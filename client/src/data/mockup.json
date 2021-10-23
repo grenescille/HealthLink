@@ -1,4 +1,5 @@
-{
+[
+  {
     "type": "FeatureCollection",
     "features": [
       {
@@ -7,18 +8,12 @@
           "name": "Casa",
           "onsiteappointment": true,
           "phone": "967348234",
-          "tags" : [
-            "reumathology",
-            "headache"
-          ],
+          "tags": ["reumathology", "headache"],
           "appointmentRadius": 1609
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [
-            -7.9338884353637695,
-            37.02311343127202
-          ]
+          "coordinates": [-7.9338884353637695, 37.02311343127202]
         }
       },
       {
@@ -27,20 +22,14 @@
           "name": "Lua",
           "onsiteappointment": true,
           "phone": "936337333",
-          "tags" : [
-            "cardiology",
-            "chest pain"
-          ],
+          "tags": ["cardiology", "chest pain"],
           "appointmentRadius": 3000
-
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [
-            -7.930970191955566,
-            37.016774457030294
-          ]
+          "coordinates": [-7.930970191955566, 37.016774457030294]
         }
       }
     ]
   }
+]

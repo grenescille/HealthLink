@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import { Button, Container } from '@material-ui/core';
 import MarkerMap from './MarkerMap';
@@ -7,6 +8,25 @@ import { useUser } from '../context/UserContext';
 import ButtonAppBar from './ButtonAppBar';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
+=======
+import { useRef, useState, useEffect } from 'react';
+import { Button, Container } from '@material-ui/core';
+import { CallContextProvider } from '../context/CallContext';
+import VideoChat from './VideoChat';
+import Options from './Options';
+import Notifications from './Notification';
+import MarkerMap from './MarkerMap';
+import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
+import ButtonAppBar from './ButtonAppBar';
+import { Box, margin } from '@mui/system';
+import { Paper } from '@material-ui/core';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Typography } from '@mui/material';
+import { AppBar } from '@mui/material';
+import OutlinedCard from './Card';
+>>>>>>> backend
 import Grid from '@mui/material/Grid';
 import BasicDateTimePicker from './BasicDateTimePicker';
 import { useHistory } from 'react-router-dom';
@@ -14,6 +34,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 
+<<<<<<< HEAD
 const AppointmentCreator = ({ authorization }) => {
   let history = useHistory();
 
@@ -32,13 +53,60 @@ const AppointmentCreator = ({ authorization }) => {
   useEffect(() => {}, [selectedDate]);
   if (!authorization) {
     console.log('not authorized!');
+=======
+const useStyles = makeStyles((theme) => ({
+  container: {
+    width: '600px',
+    margin: '35px 0',
+    padding: 0,
+    [theme.breakpoints.down('xs')]: {
+      width: '80%',
+    },
+  },
+  mypaper: {
+    borderRadius: 10,
+  },
+  mycard: {
+    fontWeight: 'bold',
+  },
+}));
+
+const AppointmentCreator = ({ authorization }) => {
+  let history = useHistory();
+
+  const {
+    selectedDoctor,
+    setSelectedDoctor,
+    remoteAppointment,
+    setRemoteAppointment,
+    createAppointment,
+    userId,
+    user,
+  } = useUser();
+  // console.log('hello word', useUser);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  let formattedDate = '';
+  // console.log('@appointment creator: date: ', selectedDate);
+  // // console.log('@appointment creator: selected doctor', selectedDoctor);
+  // console.log('NewAppoint', user);
+  useEffect(() => {
+    // console.log('newApp useeffect date: ', selectedDate);
+    formattedDate = format(selectedDate, 'yyyy-MM-dd HH:mm');
+  }, [selectedDate]);
+  if (!authorization) {
+    // console.log('not authorized!');
+>>>>>>> backend
     return <Redirect to="login" />;
   }
 
   //will handle the request to call
   const handleMeetingSubmit = () => {
     //we might need to pass some data to the create appointment
+<<<<<<< HEAD
     createAppointment(selectedDate);
+=======
+    createAppointment(selectedDate, userId);
+>>>>>>> backend
     history.push('/');
   };
 

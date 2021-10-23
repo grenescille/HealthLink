@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 
 // COULD DO WITH AN ERROR MESSAGE FOR IF A COMPUTER OR BROWSER WON'T LET THE GEOLOCATION WORK
+=======
+import React, { useState, useEffect } from 'react';
+>>>>>>> backend
 
 const useGeoLocation = () => {
   const [userLocation, setUserLocation] = useState({
@@ -30,7 +34,11 @@ const useGeoLocation = () => {
 
   useEffect(() => {
     //if browser doesn't support geolocation
+<<<<<<< HEAD
     console.log('useefect inside usegeolocation hook');
+=======
+    // console.log('useefect inside usegeolocation hook');
+>>>>>>> backend
     if (!navigator.geolocation) {
       setUserLocation((prevState) => ({
         ...prevState,
