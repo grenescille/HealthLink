@@ -11,7 +11,7 @@ const config = {
   dialect: 'postgres',
 };
 
-const sequelize: any = new Sequelize('healthdb', 'davidgreen', '123', config); //creating a sequelize instance
+const sequelize: any = new Sequelize('healthdb', 'postgres', '123', config); //creating a sequelize instance
 const db: any = {}; //empty object initialization
 const files = fs.readdirSync(__dirname); //asking node to give us a list of the files in the current folder ('models' in this case and will be an array of strings)
 

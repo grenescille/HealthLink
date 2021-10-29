@@ -30,7 +30,8 @@ declare module 'express' {
     server: Server;
   }
 }
-declare var process: {
+
+declare const process: {
   env: {
     NODE_ENV: string;
     devPORT: string;
@@ -38,6 +39,7 @@ declare var process: {
     DB_PORT: string;
   };
 };
+
 const corsConfig = {
   // REMOVE-START
   origin: 'http://localhost:3000',

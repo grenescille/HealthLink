@@ -1,12 +1,6 @@
-
-import { Model} from 'sequelize'
-
-
-
-
+import { Model } from 'sequelize';
 
 module.exports = (sequelize:any, DataTypes:any) => {
-
   interface AppointmentInstance extends Model{
     id: string,
     remoteappointment: boolean,
@@ -17,7 +11,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
     location: any,
     DoctorId: string,
     PatientId: string,
-  };
+  }
 
   const Appointment:AppointmentInstance = sequelize.define('Appointments', {
     id: {

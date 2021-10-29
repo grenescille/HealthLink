@@ -40,10 +40,11 @@ const AppointmentsVisualizer = ({ authorization }) => {
   const [fetchedAppointments, setFetchedAppointments] = useState({
     Doctors: [],
   });
-  const [sortedAppointments, setSortedAppointments] = useState();
+  const [sortedAppointments, setSortedAppointments] = useState([]);
 
   // console.log('user within AppointsVisual ', user);
   useEffect(() => {
+    let isMounted = true;    
     if (user.isDoctor) {
       getAppointments('doctor', user.id).then((data) => {
         console.log('Dr data within AppointmentsVisualizer ', data);
@@ -83,6 +84,7 @@ const AppointmentsVisualizer = ({ authorization }) => {
           setSortedAppointments(sortAppointments);
         });
     }
+    return () => { isMounted = false }
   }, []);
 
   console.log('sortedAppointments ', sortedAppointments);
@@ -93,7 +95,7 @@ const AppointmentsVisualizer = ({ authorization }) => {
 
   const rows: GridRowsProp = sortedAppointments;
 
-  const columns: GridColDef[] = [
+  const columns: GridColDef= [
     { field: 'col1', headerName: "Dr's Name", width: 220 },
     { field: 'col2', headerName: 'Time & Date', width: 220 },
     { field: 'col3', headerName: 'Location', width: 220 },
