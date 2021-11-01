@@ -1,7 +1,7 @@
 NODE_ENV = development
 devPORT = 8080
 DB_PORT = 5432
-DB_NAME = 
-DB_USER = 
-DB_PASSWORD = 
+DB_NAME =
+DB_USER =
+DB_PASSWORD =
 SESS_SECRET = V3ry!Str4ng3p455w0rd

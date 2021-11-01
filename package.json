@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node index.js",
-    "start": "npx nodemon index.js",
+    "start": "node --loader ts-node/esm index.ts",
     "build": "tsc"
   },
   "keywords": [],

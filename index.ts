@@ -46,6 +46,7 @@ const corsConfig = {
 };
 
 const { devPORT } = process.env || 5000;
+
 const { SESS_SECRET } = process.env;
 // console.log(SESS_SECRET);
 

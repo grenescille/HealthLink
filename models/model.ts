@@ -1,6 +1,6 @@
 /* eslint-disable */
 const fs = require('fs');
-// const {DB_PORT, DB_NAME, DB_USER, DB_PASSWORD} = process.env;
+const { DB_PORT, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
 // const Sequelize = require('sequelize');
 
 const { Model } = require('sequelize');
